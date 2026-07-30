@@ -1,3 +1,6 @@
+import ScrollAnimations from "./scroll-animations";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "./site-config";
+
 const projects = [
   {
     title: "Vila Kostrena",
@@ -77,11 +80,40 @@ const pricing = [
 ];
 
 export default function Home() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": `${SITE_URL}/#studio`,
+    name: SITE_NAME,
+    url: SITE_URL,
+    description: SITE_DESCRIPTION,
+    image: `${SITE_URL}/images/hero-interior.jpg`,
+    email: "davini.casa@gmail.com",
+    telephone: "+385953871448",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Zagreb",
+      addressCountry: "HR",
+    },
+    areaServed: ["Hrvatska", "Europa", "Sjedinjene Američke Države", "Azija"],
+    priceRange: "€€€",
+    knowsAbout: [
+      "Dizajn interijera",
+      "3D vizualizacija",
+      "Projektna dokumentacija",
+      "Namještaj po mjeri",
+    ],
+  };
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <header className="site-header">
         <a className="brand" href="#top" aria-label="Davini - početna">
-          <img src="/logo-davini.svg" alt="Davini" />
+          <img src="/logo-davini.svg" alt="Davini" width="382" height="72" />
           <span>Interior design &amp; architecture</span>
         </a>
 
@@ -97,7 +129,14 @@ export default function Home() {
         </a>
 
         <details className="mobile-nav">
-          <summary aria-label="Otvori izbornik">Izbornik</summary>
+          <summary aria-label="Otvori navigacijski izbornik">
+            <span className="menu-icon" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </span>
+            <span className="visually-hidden">Izbornik</span>
+          </summary>
           <div>
             <a href="#studio">Studio</a>
             <a href="#usluge">Usluge</a>
@@ -111,7 +150,7 @@ export default function Home() {
       <section className="hero" id="top">
         <div className="hero-copy">
           <p className="eyebrow">Studio za dizajn interijera</p>
-          <h1>
+          <h1 aria-label="Umjetnost prostora. Potpis koji traje.">
             Umjetnost prostora.
             <br />
             <em>Potpis koji traje.</em>
@@ -134,6 +173,11 @@ export default function Home() {
           <img
             src="/images/hero-interior.jpg"
             alt="Elegantno uređen dnevni boravak i blagovaonica"
+            width="677"
+            height="411"
+            fetchPriority="high"
+            srcSet="/images/hero-interior-420.jpg 420w, /images/hero-interior.jpg 677w"
+            sizes="(max-width: 820px) calc(100vw - 40px), 53vw"
           />
           <div className="hero-image-label">
             <span>Residential</span>
@@ -382,12 +426,14 @@ export default function Home() {
 
       <footer>
         <a className="brand footer-brand" href="#top" aria-label="Davini vrh">
-          <img src="/logo-davini.svg" alt="Davini" />
+          <img src="/logo-davini.svg" alt="Davini" width="382" height="72" />
           <span>Furniture · Interior design · Architecture</span>
         </a>
         <p>Davini d.o.o. · Zagreb, Hrvatska</p>
         <p>© {new Date().getFullYear()} Davini. Sva prava pridržana.</p>
       </footer>
+
+      <ScrollAnimations />
     </main>
   );
 }
