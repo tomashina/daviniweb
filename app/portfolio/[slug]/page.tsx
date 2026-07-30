@@ -145,11 +145,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <span>Sljedeći projekt</span>
         <strong>{nextProject.title}</strong>
         <span className="next-project-mark" aria-hidden="true">
-          <svg viewBox="0 0 128 72" focusable="false">
-            <path className="next-project-guide" d="M8 12v48M20 20v32" />
-            <path className="next-project-line" d="M8 36h104" />
-            <path className="next-project-head" d="m91 15 21 21-21 21" />
-            <circle cx="8" cy="36" r="3" />
+          <svg viewBox="0 0 48 32" focusable="false">
+            <path d="M8 16h30m-8-8 8 8-8 8" />
           </svg>
         </span>
       </a>
