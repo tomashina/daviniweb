@@ -29,14 +29,18 @@ export const metadata: Metadata = {
   manifest: "/manifest.webmanifest",
   icons: {
     icon: [
-      { url: "/davini-d.svg", type: "image/svg+xml" },
-      { url: "/davini-d.ico", sizes: "any" },
-      { url: "/davini-d-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/davini-d-dark.svg", type: "image/svg+xml" },
+      { url: "/davini-d-dark.ico", sizes: "any" },
+      {
+        url: "/davini-d-dark-192.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
     ],
-    shortcut: "/davini-d.ico",
+    shortcut: "/davini-d-dark.ico",
     apple: [
       {
-        url: "/davini-d-apple.png",
+        url: "/davini-d-dark-apple.png",
         sizes: "180x180",
         type: "image/png",
       },
