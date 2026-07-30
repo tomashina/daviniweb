@@ -6,66 +6,6 @@ import Lenis from "lenis";
 const clamp = (value: number, minimum = 0, maximum = 1) =>
   Math.min(Math.max(value, minimum), maximum);
 
-function splitCharacters(element: HTMLElement) {
-  const label =
-    element.getAttribute("aria-label") ??
-    element.textContent?.replace(/\s+/g, " ").trim();
-  const textNodes: Text[] = [];
-  const walker = document.createTreeWalker(
-    element,
-    window.NodeFilter.SHOW_TEXT,
-  );
-
-  while (walker.nextNode()) {
-    const node = walker.currentNode as Text;
-    if (node.nodeValue?.trim()) {
-      textNodes.push(node);
-    }
-  }
-
-  let characterIndex = 0;
-
-  textNodes.forEach((node) => {
-    const fragment = document.createDocumentFragment();
-    const tokens = node.nodeValue?.split(/(\s+)/) ?? [];
-
-    tokens.forEach((token) => {
-      if (!token.trim()) {
-        fragment.appendChild(document.createTextNode(token));
-        return;
-      }
-
-      const word = document.createElement("span");
-      word.className = "motion-char-word";
-
-      Array.from(token).forEach((character) => {
-        const mask = document.createElement("span");
-        const characterElement = document.createElement("span");
-
-        mask.className = "motion-char-mask";
-        characterElement.className = "motion-char";
-        characterElement.textContent = character;
-        characterElement.style.setProperty(
-          "--char-index",
-          characterIndex.toString(),
-        );
-
-        mask.appendChild(characterElement);
-        word.appendChild(mask);
-        characterIndex += 1;
-      });
-
-      fragment.appendChild(word);
-    });
-
-    node.replaceWith(fragment);
-  });
-
-  if (label) {
-    element.setAttribute("aria-label", label);
-  }
-}
-
 function splitWords(element: HTMLElement) {
   const textNodes: Text[] = [];
   const walker = document.createTreeWalker(
@@ -106,6 +46,63 @@ function splitWords(element: HTMLElement) {
   element.dataset.wordCount = wordIndex.toString();
 }
 
+function splitCharacters(element: HTMLElement) {
+  const accessibleLabel = element.textContent?.replace(/\s+/g, " ").trim();
+  const textNodes: Text[] = [];
+  const walker = document.createTreeWalker(
+    element,
+    window.NodeFilter.SHOW_TEXT,
+  );
+
+  while (walker.nextNode()) {
+    const node = walker.currentNode as Text;
+    if (node.nodeValue?.trim()) {
+      textNodes.push(node);
+    }
+  }
+
+  let characterIndex = 0;
+
+  textNodes.forEach((node) => {
+    const fragment = document.createDocumentFragment();
+    const tokens = node.nodeValue?.split(/(\s+)/) ?? [];
+
+    tokens.forEach((token) => {
+      if (!token.trim()) {
+        fragment.appendChild(document.createTextNode(token));
+        return;
+      }
+
+      const word = document.createElement("span");
+      word.className = "motion-char-word";
+
+      Array.from(token).forEach((character) => {
+        const mask = document.createElement("span");
+        const characterElement = document.createElement("span");
+
+        mask.className = "motion-char-mask";
+        characterElement.className = "motion-char";
+        characterElement.textContent = character;
+        characterElement.style.setProperty(
+          "--char-index",
+          characterIndex.toString(),
+        );
+        mask.appendChild(characterElement);
+        word.appendChild(mask);
+        characterIndex += 1;
+      });
+
+      fragment.appendChild(word);
+    });
+
+    node.replaceWith(fragment);
+  });
+
+  if (accessibleLabel) {
+    element.setAttribute("aria-label", accessibleLabel);
+  }
+}
+
 export default function ScrollAnimations() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -114,9 +111,11 @@ export default function ScrollAnimations() {
 
     const root = document.documentElement;
     const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
-    const heroHeading = document.querySelector<HTMLElement>(".hero h1");
     const sectionHeadings = Array.from(
       document.querySelectorAll<HTMLElement>("main h2"),
+    );
+    const pageHeadings = Array.from(
+      document.querySelectorAll<HTMLElement>("main h1"),
     );
     const header = document.querySelector<HTMLElement>(".site-header");
     const mobileMenu =
@@ -128,7 +127,7 @@ export default function ScrollAnimations() {
       ? null
       : new Lenis({
           autoRaf: true,
-          lerp: 0.115,
+          lerp: 0.1,
           smoothWheel: true,
           syncTouch: false,
           wheelMultiplier: 1,
@@ -145,11 +144,8 @@ export default function ScrollAnimations() {
       link.addEventListener("click", closeMobileMenu),
     );
 
-    if (heroHeading) {
-      splitCharacters(heroHeading);
-    }
-
     sectionHeadings.forEach(splitWords);
+    pageHeadings.forEach(splitCharacters);
 
     const revealSelectors = [
       ".section-kicker",
@@ -169,6 +165,18 @@ export default function ScrollAnimations() {
       ".pricing-list > p",
       ".contact-top > .eyebrow",
       ".contact-bottom > *",
+      ".inner-hero > :not(h1)",
+      ".editorial-grid > *",
+      ".principle-grid article",
+      ".reason-list article",
+      ".deliverables-grid article",
+      ".space-list article",
+      ".style-grid article",
+      ".palette > div",
+      ".reference-list > div",
+      ".project-detail-copy > :not(h1)",
+      ".portfolio-index-card > div > *",
+      ".next-project > *",
       "footer > *",
     ];
 
@@ -181,7 +189,7 @@ export default function ScrollAnimations() {
     );
     const imageElements = Array.from(
       document.querySelectorAll<HTMLElement>(
-        ".project-card, .story-image",
+        ".project-card, .story-image, .turnkey-section > img, .organic-feature-image, .project-detail-cover, .project-gallery figure",
       ),
     );
 
@@ -206,6 +214,20 @@ export default function ScrollAnimations() {
     setStagger(".process-steps article", 70);
     setStagger(".pricing-list > div", 55);
     setStagger(".contact-bottom > *", 90);
+    setStagger(".principle-grid article", 70);
+    setStagger(".reason-list article", 60);
+    setStagger(".deliverables-grid article", 55);
+    setStagger(".style-grid article", 55);
+    document
+      .querySelectorAll<HTMLElement>(".portfolio-index-card")
+      .forEach((card) =>
+        card
+          .querySelectorAll<HTMLElement>("div > *")
+          .forEach((element, index) =>
+            element.style.setProperty("--motion-delay", `${index * 90}ms`),
+          ),
+      );
+    setStagger(".reference-list > div", 35);
     setStagger("footer > *", 80);
 
     root.classList.add("motion-ready");
@@ -230,7 +252,7 @@ export default function ScrollAnimations() {
 
     const parallaxImages = Array.from(
       document.querySelectorAll<HTMLElement>(
-        ".hero-visual > img, .story-image img",
+        ".story-image img, .turnkey-section > img, .organic-feature-image img, .project-detail-cover img",
       ),
     );
 

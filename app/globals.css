@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./subpages.css";
 
 @font-face {
   font-family: "General Sans";
@@ -47,8 +48,11 @@
   --paper-soft: #f3eee7;
   --gold: #c79a63;
   --gold-light: #e4bd87;
+  --bronze-readable: #79512f;
   --muted: #a9a197;
   --line: rgba(233, 226, 216, 0.18);
+  --text-micro: clamp(12px, 0.72rem + 0.08vw, 13px);
+  --text-small: clamp(13px, 0.78rem + 0.12vw, 14px);
 }
 
 * {
@@ -138,8 +142,8 @@ summary {
 
 .brand span {
   color: var(--gold-light);
-  font-size: 8px;
-  letter-spacing: 0.24em;
+  font-size: 10px;
+  letter-spacing: 0.18em;
   margin-top: 4px;
   text-transform: uppercase;
 }
@@ -151,16 +155,21 @@ summary {
 }
 
 .desktop-nav a {
+  align-items: center;
+  border: 1px solid transparent;
   color: #d9d2c9;
-  font-size: 12px;
-  letter-spacing: 0.15em;
+  box-sizing: border-box;
+  display: inline-flex;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  min-height: 42px;
   position: relative;
   text-transform: uppercase;
 }
 
 .desktop-nav a::after {
   background: var(--gold);
-  bottom: -8px;
+  bottom: 2px;
   content: "";
   height: 1px;
   left: 0;
@@ -179,10 +188,15 @@ summary {
 
 .header-cta {
   border: 1px solid rgba(228, 189, 135, 0.55);
-  font-size: 11px;
+  border-radius: 999px;
+  box-sizing: border-box;
+  display: inline-flex;
+  font-size: 0.9rem;
+  align-items: center;
   justify-self: end;
-  letter-spacing: 0.15em;
-  padding: 13px 18px;
+  letter-spacing: 0.08em;
+  min-height: 42px;
+  padding: 0 1rem;
   text-transform: uppercase;
   transition:
     background 180ms ease,
@@ -230,8 +244,8 @@ summary {
 
 .eyebrow {
   color: var(--gold-light);
-  font-size: 11px;
-  letter-spacing: 0.28em;
+  font-size: var(--text-micro);
+  letter-spacing: 0.2em;
   margin: 0 0 30px;
   text-transform: uppercase;
 }
@@ -280,12 +294,13 @@ h2 em {
 
 .button {
   align-items: center;
+  border-radius: 999px;
   display: inline-flex;
-  font-size: 11px;
+  font-size: 0.9rem;
   justify-content: center;
-  letter-spacing: 0.18em;
-  min-height: 52px;
-  padding: 0 24px;
+  letter-spacing: 0.08em;
+  min-height: 42px;
+  padding: 0 1rem;
   text-transform: uppercase;
   transition:
     background 180ms ease,
@@ -316,8 +331,8 @@ h2 em {
 .text-link {
   border-bottom: 1px solid rgba(228, 189, 135, 0.36);
   color: var(--paper);
-  font-size: 12px;
-  letter-spacing: 0.12em;
+  font-size: var(--text-small);
+  letter-spacing: 0.08em;
   padding-bottom: 7px;
   text-transform: uppercase;
 }
@@ -355,10 +370,10 @@ h2 em {
 .hero-image-label {
   bottom: 26px;
   display: flex;
-  font-size: 10px;
+  font-size: var(--text-micro);
   justify-content: space-between;
   left: 28px;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
   position: absolute;
   right: 28px;
   text-transform: uppercase;
@@ -369,9 +384,9 @@ h2 em {
   align-items: center;
   color: var(--gold-light);
   display: flex;
-  font-size: 9px;
+  font-size: var(--text-micro);
   justify-content: center;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   transform: rotate(180deg);
   writing-mode: vertical-rl;
@@ -385,9 +400,9 @@ h2 em {
   align-items: center;
   color: var(--gold-light);
   display: flex;
-  font-size: 10px;
+  font-size: var(--text-micro);
   gap: 24px;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.18em;
   margin-bottom: 70px;
   text-transform: uppercase;
 }
@@ -405,7 +420,7 @@ h2 em {
 }
 
 .intro .section-kicker {
-  color: #88633e;
+  color: var(--bronze-readable);
 }
 
 .intro .section-kicker .line {
@@ -507,7 +522,7 @@ h2 em {
   border-bottom: 1px solid var(--line);
   display: grid;
   gap: 3vw;
-  grid-template-columns: 50px minmax(230px, 0.65fr) minmax(300px, 1fr) 40px;
+  grid-template-columns: 50px minmax(230px, 0.65fr) minmax(300px, 1fr);
   min-height: 150px;
   position: relative;
   transition: background 220ms ease;
@@ -538,12 +553,6 @@ h2 em {
   max-width: 620px;
 }
 
-.service-arrow {
-  color: var(--gold-light);
-  font-size: 20px;
-  justify-self: end;
-}
-
 .sectors {
   align-items: center;
   display: grid;
@@ -554,8 +563,8 @@ h2 em {
 
 .sectors > p {
   color: var(--muted);
-  font-size: 10px;
-  letter-spacing: 0.18em;
+  font-size: var(--text-micro);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
@@ -652,8 +661,8 @@ h2 em {
 
 .project-overlay p {
   color: var(--gold-light);
-  font-size: 9px;
-  letter-spacing: 0.2em;
+  font-size: var(--text-micro);
+  letter-spacing: 0.14em;
   margin: 0 0 5px;
   text-transform: uppercase;
 }
@@ -713,9 +722,9 @@ h2 em {
 .story-image span {
   bottom: 20px;
   color: white;
-  font-size: 10px;
+  font-size: var(--text-micro);
   left: 20px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.14em;
   position: absolute;
   text-transform: uppercase;
   z-index: 2;
@@ -736,7 +745,7 @@ h2 em {
 }
 
 .story-copy .eyebrow {
-  color: #8f653d;
+  color: var(--bronze-readable);
 }
 
 .story-copy h2 em {
@@ -799,7 +808,7 @@ h2 em {
 }
 
 .pricing .section-kicker {
-  color: #8b633e;
+  color: var(--bronze-readable);
 }
 
 .pricing .section-kicker .line {
@@ -835,7 +844,7 @@ h2 em {
 }
 
 .pricing-list > div strong {
-  color: #986a3e;
+  color: var(--bronze-readable);
   font-family: "Satoshi", "Helvetica Neue", Arial, sans-serif;
   font-size: 18px;
   font-weight: 500;
@@ -843,7 +852,7 @@ h2 em {
 }
 
 .pricing-list > p {
-  color: #756d65;
+  color: #6f675f;
   font-size: 12px;
   line-height: 1.7;
   margin: 26px 0 0;
@@ -852,7 +861,7 @@ h2 em {
 .contact {
   background:
     linear-gradient(rgba(18, 17, 15, 0.91), rgba(18, 17, 15, 0.91)),
-    url("/images/residential-bedroom.jpg") center / cover;
+    url("/images/residential-bedroom-hq.webp") center / cover;
   padding: 130px 6vw 100px;
 }
 
@@ -887,12 +896,12 @@ footer {
   align-items: end;
   background: #0c0b0a;
   border-top: 1px solid var(--line);
-  color: #777168;
+  color: #918a82;
   display: grid;
-  font-size: 10px;
+  font-size: var(--text-micro);
   gap: 30px;
   grid-template-columns: 1fr auto auto;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.09em;
   padding: 50px 6vw;
   text-transform: uppercase;
 }
@@ -944,12 +953,12 @@ footer p {
   will-change: filter, transform;
 }
 
-.motion-ready .hero .motion-char {
+.motion-ready main h1 .motion-char {
   opacity: 0;
   transform: translate3d(0, -125%, 0);
 }
 
-.motion-ready.hero-entered .hero .motion-char {
+.motion-ready.hero-entered main h1 .motion-char {
   animation: character-drop 680ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
   animation-delay: calc(110ms + var(--char-index) * 13ms);
 }
@@ -971,10 +980,6 @@ footer p {
 .motion-ready .hero-lead,
 .motion-ready .hero-actions {
   transform: translate3d(0, 28px, 0);
-}
-
-.motion-ready .hero-visual {
-  clip-path: inset(0 0 100% 0);
 }
 
 .motion-ready.hero-entered .site-header {
@@ -1017,12 +1022,6 @@ footer p {
   transition-delay: 900ms;
 }
 
-.motion-ready.hero-entered .hero-visual {
-  clip-path: inset(0);
-  transition: clip-path 1.25s cubic-bezier(0.76, 0, 0.24, 1) 160ms;
-}
-
-.hero-visual > img,
 .story-image img {
   transform: translate3d(0, var(--parallax-y, 0), 0) scale(1.08);
   will-change: transform;
@@ -1043,13 +1042,17 @@ footer p {
 }
 
 .motion-ready .motion-image-reveal {
-  clip-path: inset(0 0 100% 0);
-  transition: clip-path 1.15s cubic-bezier(0.76, 0, 0.24, 1)
-    var(--motion-delay, 0ms);
+  opacity: 0;
+  transform: translate3d(0, 34px, 0) scale(0.992);
+  transition:
+    opacity 750ms ease var(--motion-delay, 0ms),
+    transform 1.05s cubic-bezier(0.22, 1, 0.36, 1)
+      var(--motion-delay, 0ms);
 }
 
 .motion-ready .motion-image-reveal.is-visible {
-  clip-path: inset(0);
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
 }
 
 .motion-ready .section-kicker .line {
@@ -1148,8 +1151,8 @@ footer p {
 
   .mobile-nav a {
     border-bottom: 1px solid var(--line);
-    font-size: 12px;
-    padding: 13px 10px;
+    font-size: 1.125rem;
+    padding: 16px 10px;
   }
 
   .hero {
@@ -1289,17 +1292,12 @@ footer p {
   .services-list article {
     align-items: start;
     gap: 12px;
-    grid-template-columns: 38px 1fr 30px;
+    grid-template-columns: 38px 1fr;
     padding: 28px 0;
   }
 
   .services-list p {
     grid-column: 2 / -1;
-  }
-
-  .service-arrow {
-    grid-column: 3;
-    grid-row: 1;
   }
 
   .sectors {
@@ -1381,7 +1379,6 @@ footer p {
     padding: 46px 20px;
   }
 
-  .hero-visual > img,
   .story-image img {
     transform: translate3d(0, var(--parallax-y, 0), 0) scale(1.12);
   }

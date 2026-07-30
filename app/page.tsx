@@ -1,4 +1,6 @@
-import ScrollAnimations from "./scroll-animations";
+import ContactSection from "./components/contact-section";
+import SiteFooter from "./components/site-footer";
+import SiteHeader from "./components/site-header";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "./site-config";
 
 const projects = [
@@ -6,36 +8,54 @@ const projects = [
     title: "Vila Kostrena",
     type: "Rezidencijalni interijer",
     image: "/images/villa-kostrena.jpg",
+    image2x: "/images/villa-kostrena-2x.webp",
+    width: 678,
+    height: 278,
     className: "project-wide",
   },
   {
     title: "Wine bar",
     type: "Ugostiteljski interijer",
     image: "/images/wine-bar.jpg",
+    image2x: "/images/wine-bar-2x.webp",
+    width: 353,
+    height: 189,
     className: "",
   },
   {
     title: "Hotel Marabella",
     type: "Hotelski interijer",
     image: "/images/hotel-marabella.jpg",
+    image2x: "/images/hotel-marabella-2x.webp",
+    width: 305,
+    height: 391,
     className: "project-tall",
   },
   {
     title: "Veterinarska poliklinika Vetti",
     type: "Zdravstveni interijer",
     image: "/images/vetti-clinic.jpg",
+    image2x: "/images/vetti-clinic-2x.webp",
+    width: 354,
+    height: 229,
     className: "",
   },
   {
     title: "Beauty salon Teoma",
     type: "Beauty interijer",
     image: "/images/beauty-salon.jpg",
+    image2x: "/images/beauty-salon-2x.webp",
+    width: 303,
+    height: 387,
     className: "project-tall",
   },
   {
     title: "Faces 2 Faces",
     type: "Club & bar",
     image: "/images/faces-club.jpg",
+    image2x: "/images/faces-club-2x.webp",
+    width: 354,
+    height: 229,
     className: "",
   },
 ];
@@ -87,7 +107,7 @@ export default function Home() {
     name: SITE_NAME,
     url: SITE_URL,
     description: SITE_DESCRIPTION,
-    image: `${SITE_URL}/images/hero-interior.jpg`,
+    image: `${SITE_URL}/images/hero-interior-2x.jpg`,
     email: "davini.casa@gmail.com",
     telephone: "+385953871448",
     address: {
@@ -111,41 +131,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <header className="site-header">
-        <a className="brand" href="#top" aria-label="Davini - početna">
-          <img src="/logo-davini.svg" alt="Davini" width="382" height="72" />
-          <span>Interior design &amp; architecture</span>
-        </a>
-
-        <nav className="desktop-nav" aria-label="Glavna navigacija">
-          <a href="#studio">Studio</a>
-          <a href="#usluge">Usluge</a>
-          <a href="#portfolio">Portfolio</a>
-          <a href="#cjenik">Cjenik</a>
-        </nav>
-
-        <a className="header-cta" href="#kontakt">
-          Započnimo projekt
-        </a>
-
-        <details className="mobile-nav">
-          <summary aria-label="Otvori navigacijski izbornik">
-            <span className="menu-icon" aria-hidden="true">
-              <span />
-              <span />
-              <span />
-            </span>
-            <span className="visually-hidden">Izbornik</span>
-          </summary>
-          <div>
-            <a href="#studio">Studio</a>
-            <a href="#usluge">Usluge</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#cjenik">Cjenik</a>
-            <a href="#kontakt">Kontakt</a>
-          </div>
-        </details>
-      </header>
+      <SiteHeader />
 
       <section className="hero" id="top">
         <div className="hero-copy">
@@ -164,19 +150,19 @@ export default function Home() {
               Istražite projekte
             </a>
             <a className="text-link" href="/davini-portfolio.pdf" download>
-              Preuzmite portfolio <span aria-hidden="true">↘</span>
+              Preuzmite portfolio
             </a>
           </div>
         </div>
 
         <div className="hero-visual">
           <img
-            src="/images/hero-interior.jpg"
+            src="/images/hero-interior-420.jpg"
             alt="Elegantno uređen dnevni boravak i blagovaonica"
             width="677"
             height="411"
             fetchPriority="high"
-            srcSet="/images/hero-interior-420.jpg 420w, /images/hero-interior.jpg 677w"
+            srcSet="/images/hero-interior-420.jpg 420w, /images/hero-interior.jpg 677w, /images/hero-interior-2x.webp 1354w"
             sizes="(max-width: 820px) calc(100vw - 40px), 53vw"
           />
           <div className="hero-image-label">
@@ -254,9 +240,6 @@ export default function Home() {
               <span>{service.number}</span>
               <h3>{service.title}</h3>
               <p>{service.text}</p>
-              <span className="service-arrow" aria-hidden="true">
-                ↗
-              </span>
             </article>
           ))}
         </div>
@@ -300,21 +283,32 @@ export default function Home() {
               className={`project-card ${project.className}`}
               key={`${project.title}-${index}`}
             >
-              <img src={project.image} alt={project.title} loading="lazy" />
+              <img
+                src={project.image}
+                srcSet={`${project.image} ${project.width}w, ${project.image2x} ${project.width * 2}w`}
+                sizes={
+                  project.className === "project-wide"
+                    ? "(max-width: 820px) calc(100vw - 40px), (max-width: 1100px) 44vw, 59vw"
+                    : "(max-width: 820px) calc(100vw - 40px), (max-width: 1100px) 44vw, 29vw"
+                }
+                alt={project.title}
+                width={project.width}
+                height={project.height}
+                loading="lazy"
+              />
               <div className="project-overlay">
                 <div>
                   <p>{project.type}</p>
                   <h3>{project.title}</h3>
                 </div>
-                <span aria-hidden="true">↗</span>
               </div>
             </article>
           ))}
         </div>
 
         <div className="portfolio-action">
-          <a className="button button-outline" href="/davini-portfolio.pdf">
-            Pogledajte cijeli portfolio
+          <a className="button button-outline" href="/portfolio/">
+            Otvorite cijeli portfolio
           </a>
         </div>
       </section>
@@ -323,7 +317,11 @@ export default function Home() {
         <div className="story-image story-image-organic">
           <img
             src="/images/organic-interior.jpg"
+            srcSet="/images/organic-interior.jpg 274w, /images/organic-interior-2x.webp 548w"
+            sizes="(max-width: 820px) calc(100vw - 40px), 24vw"
             alt="Organski oblikovan interijer inspiriran prirodom"
+            width="274"
+            height="252"
             loading="lazy"
           />
           <span>Organic design</span>
@@ -343,7 +341,11 @@ export default function Home() {
         <div className="story-image story-image-detail">
           <img
             src="/images/bespoke-bathroom.jpg"
+            srcSet="/images/bespoke-bathroom.jpg 354w, /images/bespoke-bathroom-2x.webp 708w"
+            sizes="24vw"
             alt="Moderan interijer kupaonice u tamnim tonovima"
+            width="354"
+            height="190"
             loading="lazy"
           />
           <span>Modern design</span>
@@ -406,34 +408,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="contact" id="kontakt">
-        <div className="contact-top">
-          <p className="eyebrow">Započnimo razgovor</p>
-          <h2>
-            Imate prostor na umu?
-            <br />
-            <em>Oblikujmo ga zajedno.</em>
-          </h2>
-        </div>
-        <div className="contact-bottom">
-          <a href="mailto:davini.casa@gmail.com">davini.casa@gmail.com</a>
-          <a href="tel:+385953871448">+385 95 3871 448</a>
-          <a className="button button-gold" href="mailto:davini.casa@gmail.com">
-            Pošaljite upit
-          </a>
-        </div>
-      </section>
-
-      <footer>
-        <a className="brand footer-brand" href="#top" aria-label="Davini vrh">
-          <img src="/logo-davini.svg" alt="Davini" width="382" height="72" />
-          <span>Furniture · Interior design · Architecture</span>
-        </a>
-        <p>Davini d.o.o. · Zagreb, Hrvatska</p>
-        <p>© {new Date().getFullYear()} Davini. Sva prava pridržana.</p>
-      </footer>
-
-      <ScrollAnimations />
+      <ContactSection />
+      <SiteFooter />
     </main>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import ScrollAnimations from "./scroll-animations";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "./site-config";
 
 export const metadata: Metadata = {
@@ -55,9 +56,9 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     images: [
       {
-        url: "/images/hero-interior.jpg",
-        width: 677,
-        height: 411,
+        url: "/images/hero-interior-2x.jpg",
+        width: 1354,
+        height: 822,
         alt: "Interijer koji je oblikovao Davini studio",
       },
     ],
@@ -66,7 +67,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Davini | Dizajn interijera i arhitektura Zagreb",
     description: SITE_DESCRIPTION,
-    images: ["/images/hero-interior.jpg"],
+    images: ["/images/hero-interior-2x.jpg"],
   },
   robots: {
     index: true,
@@ -102,15 +103,11 @@ export default function RootLayout({
           type="font/woff2"
           crossOrigin="anonymous"
         />
-        <link
-          rel="preload"
-          href="/fonts/general-sans-light.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <ScrollAnimations />
+      </body>
     </html>
   );
 }
