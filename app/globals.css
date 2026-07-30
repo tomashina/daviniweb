@@ -151,39 +151,30 @@ summary {
 .desktop-nav {
   align-items: center;
   display: flex;
-  gap: 36px;
+  gap: 4px;
 }
 
 .desktop-nav a {
   align-items: center;
   border: 1px solid transparent;
+  border-radius: 999px;
   color: #d9d2c9;
   box-sizing: border-box;
   display: inline-flex;
   font-size: 0.9rem;
   letter-spacing: 0.08em;
   min-height: 42px;
-  position: relative;
+  padding: 0 1rem;
   text-transform: uppercase;
+  transition:
+    background-color 220ms ease,
+    color 220ms ease;
 }
 
-.desktop-nav a::after {
-  background: var(--gold);
-  bottom: 2px;
-  content: "";
-  height: 1px;
-  left: 0;
-  position: absolute;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 220ms ease;
-  width: 100%;
-}
-
-.desktop-nav a:hover::after,
-.desktop-nav a:focus-visible::after {
-  transform: scaleX(1);
-  transform-origin: left;
+.desktop-nav a:hover,
+.desktop-nav a:focus-visible {
+  background: rgba(233, 226, 216, 0.1);
+  color: var(--paper);
 }
 
 .header-cta {
