@@ -1,5 +1,45 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "General Sans";
+  src: url("/fonts/general-sans-light.woff2") format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "General Sans";
+  src: url("/fonts/general-sans-regular.woff2") format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/satoshi-regular.woff2") format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/satoshi-medium.woff2") format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Gambetta";
+  src: url("/fonts/gambetta-italic.ttf") format("truetype");
+  font-display: swap;
+  font-style: italic;
+  font-weight: 400;
+}
+
 :root {
   --ink: #1b1a18;
   --ink-soft: #25231f;
@@ -23,8 +63,9 @@ body {
   margin: 0;
   background: var(--ink);
   color: var(--paper);
-  font-family: "Helvetica Neue", "Avenir Next", Arial, Helvetica, sans-serif;
+  font-family: "General Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
+  font-weight: 300;
   line-height: 1.5;
 }
 
@@ -173,10 +214,15 @@ summary {
 
 h1,
 h2 {
-  font-weight: 320;
+  font-family: "Satoshi", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 500;
   letter-spacing: -0.045em;
   line-height: 0.97;
   margin: 0;
+}
+
+h3 {
+  font-family: "Satoshi", "Helvetica Neue", Arial, sans-serif;
 }
 
 h1 {
@@ -186,8 +232,9 @@ h1 {
 h1 em,
 h2 em {
   color: var(--gold-light);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "Gambetta", Georgia, "Times New Roman", serif;
   font-weight: 400;
+  letter-spacing: -0.025em;
 }
 
 .hero-lead {
@@ -393,9 +440,9 @@ h2 em {
 
 .stats strong {
   color: #9a6a3d;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "Satoshi", "Helvetica Neue", Arial, sans-serif;
   font-size: clamp(44px, 4vw, 70px);
-  font-weight: 400;
+  font-weight: 500;
   line-height: 0.9;
 }
 
@@ -447,7 +494,7 @@ h2 em {
 
 .services-list article > span:first-child {
   color: var(--gold);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "General Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 14px;
 }
 
@@ -703,7 +750,7 @@ h2 em {
 
 .process-steps article > span {
   color: var(--gold);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "General Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 13px;
 }
 
@@ -764,9 +811,9 @@ h2 em {
 
 .pricing-list > div strong {
   color: #986a3e;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "Satoshi", "Helvetica Neue", Arial, sans-serif;
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 500;
   white-space: nowrap;
 }
 
