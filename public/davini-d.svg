@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="112 368 94 94" role="img" aria-labelledby="title">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="116 375 85 69" role="img" aria-labelledby="title">
   <title id="title">Davini D</title>
   <defs>
-    <linearGradient id="davini-gold" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="davini-gold" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="#9d7047"/>
-      <stop offset="0.35" stop-color="#e4bd87"/>
-      <stop offset="0.68" stop-color="#b27d4d"/>
-      <stop offset="1" stop-color="#e2b87d"/>
+      <stop offset="0.28" stop-color="#e4bd87"/>
+      <stop offset="0.54" stop-color="#b27d4d"/>
+      <stop offset="0.78" stop-color="#e2b87d"/>
+      <stop offset="1" stop-color="#8f603c"/>
     </linearGradient>
   </defs>
-  <rect x="112" y="368" width="94" height="94" rx="18" fill="#1b1a18"/>
   <path fill="url(#davini-gold)" d="M119.113 378.914h53.434c16.855 0 25.281 5.563 25.281 16.684v27.976c0 11.004-8.426 16.508-25.281 16.508h-53.434zm53.434 52.133c9.152 0 13.726-2.492 13.726-7.473v-27.976c0-5.098-4.574-7.645-13.726-7.645h-41.879v43.094z"/>
 </svg>
