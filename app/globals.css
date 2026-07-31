@@ -664,6 +664,12 @@ h2 em {
   z-index: 2;
 }
 
+.project-overlay > div {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+}
+
 .project-overlay p {
   color: #f0c994;
   font-size: var(--text-micro);
