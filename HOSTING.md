@@ -20,6 +20,38 @@ pogrešna putanja `public_html/public/public`.
 Uključeni `public/.htaccess` automatski preusmjerava HTTP i domenu bez `www` na
 `https://www.davini.hr`, uključuje kompresiju, cache i sigurnosna zaglavlja.
 
+## GitHub i buduća ažuriranja
+
+Repozitorij koristi dvije grane:
+
+- `main` sadrži izvorni projekt, sadržaj i skripte za izgradnju;
+- `production` sadrži samo gotovu statičnu stranicu u mapi `public`, spremnu
+  za cPanel document root `public_html/public`.
+
+Nakon što je aktualni ZIP raspakiran u `public_html`, postojeću mapu je moguće
+sigurno povezati s produkcijskom granom iz cPanel Terminala:
+
+```bash
+cd public_html
+git init
+git remote add origin https://github.com/tomashina/daviniweb.git
+git fetch origin production
+git checkout -b production
+git reset origin/production
+git branch --set-upstream-to=origin/production production
+```
+
+`git reset` je ovdje namjerno bez `--hard`: povezuje postojeće datoteke s Git
+stanjem bez njihovog brisanja. Buduće objavljene izmjene zatim se preuzimaju:
+
+```bash
+cd public_html
+git pull --ff-only origin production
+```
+
+Prije svakog produkcijskog povlačenja lokalno se izradi i na GitHub pošalje
+novi `production` commit.
+
 ## DNS
 
 - `davini.hr` treba pokazivati na IP hosting računa.
