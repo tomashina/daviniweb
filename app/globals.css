@@ -653,19 +653,20 @@ h2 em {
 }
 
 .project-overlay {
-  align-items: end;
+  box-sizing: border-box;
   bottom: 0;
-  display: flex;
-  justify-content: space-between;
+  display: block;
   left: 0;
   padding: 24px;
   position: absolute;
   right: 0;
+  width: 100%;
   z-index: 2;
 }
 
 .project-overlay > div {
-  flex: 1 1 auto;
+  display: block;
+  max-width: none;
   min-width: 0;
   width: 100%;
 }
@@ -677,6 +678,7 @@ h2 em {
   margin: 0 0 5px;
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.88);
   text-transform: uppercase;
+  width: 100%;
 }
 
 .project-overlay h3 {
@@ -685,6 +687,7 @@ h2 em {
   font-weight: 380;
   margin: 0;
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.94);
+  width: 100%;
 }
 
 .project-overlay > span {
