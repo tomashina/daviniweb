@@ -151,7 +151,7 @@ export default function Home() {
             savršenoj ravnoteži - od prve ideje do posljednjeg detalja.
           </p>
           <div className="hero-actions">
-            <a className="button button-gold" href="#portfolio">
+            <a className="button button-gold" href="/portfolio/">
               Istražite projekte
             </a>
           </div>
