@@ -1451,6 +1451,13 @@ footer p {
     min-height: 0;
   }
 
+  .motion-ready .project-overlay.motion-reveal,
+  .motion-ready .portfolio-index-card > div > .motion-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
   .design-story {
     display: flex;
     flex-direction: column;

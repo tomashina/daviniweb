@@ -168,7 +168,7 @@ export default function ScrollAnimations() {
     const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
     const sectionHeadings = Array.from(
       document.querySelectorAll<HTMLElement>("main h2"),
-    );
+    ).filter((heading) => !heading.closest(".portfolio-index-card"));
     const pageHeadings = Array.from(
       document.querySelectorAll<HTMLElement>("main h1"),
     );
