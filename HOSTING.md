@@ -38,11 +38,14 @@ git remote add origin https://github.com/tomashina/daviniweb.git
 git fetch origin production
 git checkout -b production
 git reset origin/production
+git checkout origin/production -- public
 git branch --set-upstream-to=origin/production production
 ```
 
-`git reset` je ovdje namjerno bez `--hard`: povezuje postojeće datoteke s Git
-stanjem bez njihovog brisanja. Buduće objavljene izmjene zatim se preuzimaju:
+`git reset` je ovdje namjerno bez `--hard`: povezuje repozitorij s produkcijskom
+granom bez brisanja drugih datoteka. Sljedeća `git checkout` naredba zatim
+fizički vraća kompletan sadržaj praćene mape `public`. Buduće objavljene izmjene
+preuzimaju se:
 
 ```bash
 cd public_html
