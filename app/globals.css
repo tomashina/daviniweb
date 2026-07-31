@@ -613,9 +613,11 @@ h2 em {
 }
 
 .project-card {
+  display: block;
   min-height: 250px;
   overflow: hidden;
   position: relative;
+  width: 100%;
 }
 
 .project-card::after {
