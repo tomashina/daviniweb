@@ -435,9 +435,17 @@
 }
 
 .portfolio-index-card::after {
-  background: linear-gradient(180deg, transparent 38%, rgba(9, 8, 7, 0.91));
+  background:
+    linear-gradient(90deg, rgba(7, 6, 5, 0.64), transparent 72%),
+    linear-gradient(
+      180deg,
+      rgba(7, 6, 5, 0.04) 22%,
+      rgba(7, 6, 5, 0.44) 60%,
+      rgba(7, 6, 5, 0.97) 100%
+    );
   content: "";
   inset: 0;
+  pointer-events: none;
   position: absolute;
 }
 
@@ -466,17 +474,20 @@
 }
 
 .portfolio-index-card p {
-  color: #c3bab0;
+  color: #f0c994;
   font-size: var(--text-micro);
   grid-column: 1 / -1;
   letter-spacing: 0.1em;
   margin: 0 0 10px;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.88);
   text-transform: uppercase;
 }
 
 .portfolio-index-card h2 {
+  color: #f4efe8;
   font-size: clamp(30px, 3.1vw, 50px);
   line-height: 1;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.94);
 }
 
 .portfolio-index-card > div > span {
@@ -954,7 +965,16 @@
   }
 
   .portfolio-index-card > div {
+    box-sizing: border-box;
+    display: block;
     padding: 25px;
+    width: 100%;
+  }
+
+  .portfolio-index-card p,
+  .portfolio-index-card h2 {
+    max-width: none;
+    width: 100%;
   }
 
   .reference-list div {

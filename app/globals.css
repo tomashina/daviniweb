@@ -619,9 +619,17 @@ h2 em {
 }
 
 .project-card::after {
-  background: linear-gradient(180deg, transparent 42%, rgba(11, 10, 9, 0.86));
+  background:
+    linear-gradient(90deg, rgba(8, 7, 6, 0.62), transparent 72%),
+    linear-gradient(
+      180deg,
+      rgba(8, 7, 6, 0.04) 24%,
+      rgba(8, 7, 6, 0.42) 62%,
+      rgba(8, 7, 6, 0.96) 100%
+    );
   content: "";
   inset: 0;
+  pointer-events: none;
   position: absolute;
 }
 
@@ -657,17 +665,20 @@ h2 em {
 }
 
 .project-overlay p {
-  color: var(--gold-light);
+  color: #f0c994;
   font-size: var(--text-micro);
   letter-spacing: 0.14em;
   margin: 0 0 5px;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.88);
   text-transform: uppercase;
 }
 
 .project-overlay h3 {
+  color: #f4efe8;
   font-size: 22px;
   font-weight: 380;
   margin: 0;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.94);
 }
 
 .project-overlay > span {
