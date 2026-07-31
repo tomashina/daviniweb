@@ -2,7 +2,7 @@
 """Import the supplied Davini portfolio photography into public/portfolio.
 
 The importer keeps the original files untouched, removes byte-identical
-duplicates and creates sequential, high-quality WebP galleries for the site.
+duplicates, filters undersized sources and creates sequential WebP galleries.
 """
 
 from __future__ import annotations
@@ -15,6 +15,8 @@ from PIL import Image, ImageOps
 
 
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".tif", ".tiff"}
+MIN_LONG_EDGE = 1500
+MIN_SHORT_EDGE = 800
 
 
 def image_files(folder: Path, recursive: bool = False) -> list[Path]:
@@ -44,6 +46,13 @@ def digest(path: Path) -> str:
         for chunk in iter(lambda: source.read(1024 * 1024), b""):
             hasher.update(chunk)
     return hasher.hexdigest()
+
+
+def is_web_quality(path: Path) -> bool:
+    """Keep only sources that remain clean at large desktop sizes."""
+    with Image.open(path) as image:
+        width, height = image.size
+    return max(width, height) >= MIN_LONG_EDGE and min(width, height) >= MIN_SHORT_EDGE
 
 
 def build_galleries(source_root: Path) -> list[tuple[str, list[Path]]]:
@@ -225,8 +234,8 @@ def main() -> None:
     parser.add_argument("--quality", type=int, default=90)
     args = parser.parse_args()
 
-    galleries = build_galleries(args.source)
-    selected = [path for _, paths in galleries for path in paths]
+    mapped_galleries = build_galleries(args.source)
+    selected = [path for _, paths in mapped_galleries for path in paths]
     missing = [path for path in selected if not path.is_file()]
     if missing:
         raise SystemExit("Missing source files:\n" + "\n".join(map(str, missing)))
@@ -241,7 +250,21 @@ def main() -> None:
         unmapped = [path for path in source_files if digest(path) not in selected_set]
         raise SystemExit("Unmapped unique images:\n" + "\n".join(map(str, unmapped)))
 
-    print(f"Importing {len(selected)} unique images into {len(galleries)} projects")
+    galleries = []
+    skipped = []
+    for slug, sources in mapped_galleries:
+        quality_sources = [source for source in sources if is_web_quality(source)]
+        skipped.extend(source for source in sources if source not in quality_sources)
+        if quality_sources:
+            galleries.append((slug, quality_sources))
+
+    for stale in args.destination.glob("*/*.webp"):
+        stale.unlink()
+
+    print(
+        f"Importing {sum(len(sources) for _, sources in galleries)} quality images "
+        f"into {len(galleries)} projects; skipping {len(skipped)} undersized sources"
+    )
     for slug, sources in galleries:
         project_folder = args.destination / slug
         project_folder.mkdir(parents=True, exist_ok=True)
@@ -254,6 +277,10 @@ def main() -> None:
             first_size = first_size or size
         print(f"{slug}: {len(sources)} images, cover {first_size[0]}x{first_size[1]}")
 
+    for project_folder in args.destination.iterdir():
+        if project_folder.is_dir() and not any(project_folder.iterdir()):
+            project_folder.rmdir()
+
     site_assets = args.destination.parent / "site-assets"
     site_assets.mkdir(parents=True, exist_ok=True)
     hero_source = (
@@ -263,14 +290,17 @@ def main() -> None:
     )
     contact_source = (
         args.source
-        / "wetransfer_render-1774299345132-png_2026-07-31_0802"
-        / "projekti"
-        / "MNMLAI_INTERIORAI_00001_ (8).png"
+        / "wetransfer_slike_2026-07-31_0738"
+        / "Vila Lovran"
+        / "livingroom 1.png"
     )
     for edge in (640, 1280, 1920):
         convert(hero_source, site_assets / f"hero-{edge}.webp", edge, 88)
-    convert(contact_source, site_assets / "contact-1280.webp", 1280, 78)
-    print("site-assets: responsive hero and contact background")
+    old_contact = site_assets / "contact-1280.webp"
+    if old_contact.exists():
+        old_contact.unlink()
+    convert(contact_source, site_assets / "contact-2560.webp", 2560, 86)
+    print("site-assets: responsive hero and high-resolution contact background")
 
 
 if __name__ == "__main__":

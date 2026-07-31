@@ -1,6 +1,16 @@
+/* eslint-disable @next/next/no-img-element */
 export default function ContactSection() {
   return (
     <section className="contact" id="kontakt">
+      <img
+        className="contact-background"
+        src="/site-assets/contact-2560.webp"
+        alt=""
+        width="2560"
+        height="1066"
+        loading="lazy"
+        aria-hidden="true"
+      />
       <div className="contact-top">
         <p className="eyebrow">Započnimo razgovor</p>
         <h2>

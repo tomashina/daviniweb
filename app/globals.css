@@ -856,14 +856,26 @@ h2 em {
 }
 
 .contact {
-  background:
-    linear-gradient(rgba(18, 17, 15, 0.91), rgba(18, 17, 15, 0.91)),
-    url("/site-assets/contact-1280.webp") center / cover;
+  background: #12110f;
+  overflow: hidden;
   padding: 130px 6vw 100px;
+  position: relative;
+}
+
+.contact-background {
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  opacity: 0.09;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
 }
 
 .contact-top {
   margin-bottom: 90px;
+  position: relative;
+  z-index: 1;
 }
 
 .contact h2 {
@@ -877,6 +889,8 @@ h2 em {
   gap: 20px;
   grid-template-columns: 1fr 1fr auto;
   padding-top: 36px;
+  position: relative;
+  z-index: 1;
 }
 
 .contact-bottom > a:not(.button) {
@@ -897,7 +911,7 @@ footer {
   display: grid;
   font-size: var(--text-micro);
   gap: 30px;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: 1fr auto auto auto;
   letter-spacing: 0.09em;
   padding: 50px 6vw;
   text-transform: uppercase;
@@ -913,6 +927,17 @@ footer {
 
 footer p {
   margin: 0;
+}
+
+.footer-credit {
+  color: #b6aea5;
+  text-decoration: none;
+  transition: color 250ms ease;
+}
+
+.footer-credit:hover,
+.footer-credit:focus-visible {
+  color: var(--gold-light);
 }
 
 .site-header {

@@ -1,4 +1,4 @@
-export const SITE_URL = "https://davini.hr";
+export const SITE_URL = "https://www.davini.hr";
 
 export const SITE_NAME = "Davini";
 

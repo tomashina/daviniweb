@@ -5,7 +5,7 @@ import ContactSection from "../../components/contact-section";
 import ProjectLightbox from "../../components/project-lightbox";
 import SiteFooter from "../../components/site-footer";
 import SiteHeader from "../../components/site-header";
-import { portfolioProjects } from "../../content";
+import { portfolioImagePath, portfolioProjects } from "../../content";
 import { SITE_URL } from "../../site-config";
 
 type ProjectPageProps = {
@@ -26,7 +26,7 @@ export async function generateMetadata({
     return {};
   }
 
-  const image = `/portfolio/${project.slug}/01.webp`;
+  const image = portfolioImagePath(project.slug);
 
   return {
     title: project.title,
@@ -57,8 +57,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     portfolioProjects[(projectIndex + 1) % portfolioProjects.length];
   const gallery = Array.from(
     { length: project.galleryCount },
-    (_, index) =>
-      `/portfolio/${project.slug}/${String(index + 1).padStart(2, "0")}.webp`,
+    (_, index) => portfolioImagePath(project.slug, index + 1),
   );
   const galleryImages = gallery.slice(1);
   const expandLastImage = galleryImages.length % 2 === 0;

@@ -3,7 +3,7 @@ import ContactSection from "../components/contact-section";
 import InnerHero from "../components/inner-hero";
 import SiteFooter from "../components/site-footer";
 import SiteHeader from "../components/site-header";
-import { designStyles, palette } from "../content";
+import { designStyles, palette, portfolioImagePath } from "../content";
 
 export const metadata: Metadata = {
   title: "Stilovi dizajna interijera",
@@ -67,10 +67,10 @@ export default function StylesPage() {
       <section className="organic-feature">
         <div className="organic-feature-image">
           <img
-            src="/portfolio/vila-pantovcak/04.webp"
+            src={portfolioImagePath("vila-pantovcak")}
             sizes="(max-width: 820px) 100vw, 40vw"
             width="1536"
-            height="608"
+            height="1152"
             loading="lazy"
             alt="Suvremeni interijer s organskim oblicima i prirodnim materijalima"
           />

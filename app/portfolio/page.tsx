@@ -3,7 +3,11 @@ import ContactSection from "../components/contact-section";
 import InnerHero from "../components/inner-hero";
 import SiteFooter from "../components/site-footer";
 import SiteHeader from "../components/site-header";
-import { portfolioProjects, referenceProjects } from "../content";
+import {
+  portfolioImagePath,
+  portfolioProjects,
+  referenceProjects,
+} from "../content";
 
 export const metadata: Metadata = {
   title: "Portfolio",
@@ -64,7 +68,7 @@ export default function PortfolioPage() {
               key={project.slug}
             >
               <img
-                src={`/portfolio/${project.slug}/01.webp`}
+                src={portfolioImagePath(project.slug)}
                 alt={project.title}
                 width={project.imageWidth}
                 height={project.imageHeight}

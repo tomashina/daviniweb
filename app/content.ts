@@ -163,6 +163,12 @@ export type PortfolioProject = {
   imageHeight: number;
 };
 
+export const PORTFOLIO_IMAGE_VERSION = "20260731-quality";
+
+export function portfolioImagePath(slug: string, index = 1) {
+  return `/portfolio/${slug}/${String(index).padStart(2, "0")}.webp?v=${PORTFOLIO_IMAGE_VERSION}`;
+}
+
 export const portfolioProjects: PortfolioProject[] = [
   {
     slug: "urocentar",
@@ -182,9 +188,9 @@ export const portfolioProjects: PortfolioProject[] = [
     location: "Zagreb / Dubrovnik",
     description:
       "Specijalna bolnica Arithera djeluje na tri lokacije u Zagrebu i jednoj u Dubrovniku. Interijer obične bolnice pretvoren je u ugodan dnevni boravak. Kao i u svim sličnim projektima, cilj je omogućiti pacijentima da se osjećaju ugodno i dobrodošlo te samim dizajnom smanjiti stres ili napetost pri dolasku u bolnicu.",
-    galleryCount: 9,
-    imageWidth: 960,
-    imageHeight: 639,
+    galleryCount: 3,
+    imageWidth: 2048,
+    imageHeight: 1365,
   },
   {
     slug: "aviva",
@@ -193,8 +199,8 @@ export const portfolioProjects: PortfolioProject[] = [
     location: "Zagreb",
     description:
       "Poliklinika Aviva u Zagrebu jedna je od najvećih poliklinika u Hrvatskoj. Prema željama investitora odabran je drukčiji pristup dizajnu interijera, uz odmak od uobičajenog stila zdravstvenih prostora.",
-    galleryCount: 9,
-    imageWidth: 1231,
+    galleryCount: 8,
+    imageWidth: 1600,
     imageHeight: 900,
   },
   {
@@ -204,7 +210,7 @@ export const portfolioProjects: PortfolioProject[] = [
     location: "Zagreb",
     description:
       "Smeđe boje i drveni elementi daju prostoru poseban ugođaj i šarm. Specifičan info pult s pravim deblom privlači pažnju već na prvi pogled, dok soba za masažu sa svjetlećim zidom stvara osjećaj boravka u prirodi.",
-    galleryCount: 8,
+    galleryCount: 3,
     imageWidth: 1708,
     imageHeight: 1708,
   },
@@ -215,7 +221,7 @@ export const portfolioProjects: PortfolioProject[] = [
     location: "Zagreb",
     description:
       "Najveća veterinarska poliklinika u Hrvatskoj nalazi se u Zagrebu i dizajnom interijera jasno se razlikuje od drugih sličnih poliklinika. Ugodan dizajn prilagođen našim najboljim prijateljima pomaže smanjiti stres odlaska kućnih ljubimaca kod doktora.",
-    galleryCount: 11,
+    galleryCount: 10,
     imageWidth: 1600,
     imageHeight: 900,
   },
@@ -229,28 +235,6 @@ export const portfolioProjects: PortfolioProject[] = [
     galleryCount: 7,
     imageWidth: 1600,
     imageHeight: 900,
-  },
-  {
-    slug: "boutique-san-marco",
-    title: "Boutique San Marco",
-    category: "Prodajni interijer",
-    location: "Europa",
-    description:
-      "Interijer modnog butika oblikovan kao profinjena scenografija za kolekciju. Organske forme, neutralni tonovi i pažljivo vođena rasvjeta stvaraju smiren i prepoznatljiv identitet prostora.",
-    galleryCount: 9,
-    imageWidth: 1000,
-    imageHeight: 1000,
-  },
-  {
-    slug: "faces-2-face",
-    title: "Caffe bar Face 2 Face",
-    category: "Ugostiteljski interijer",
-    location: "Zagreb",
-    description:
-      "U središnjem dijelu caffe bara dominira veliko bijelo stablo čije se grane protežu po stropu. Jednostavno, ali drukčije — dokaz da jedna intervencija može potpuno promijeniti izgled interijera.",
-    galleryCount: 8,
-    imageWidth: 960,
-    imageHeight: 422,
   },
   {
     slug: "vila-kostrena",
@@ -270,7 +254,7 @@ export const portfolioProjects: PortfolioProject[] = [
     location: "Zagreb",
     description:
       "Cjelovit projekt rezidencijalnog interijera oblikovan kroz profinjene materijale, uravnotežene proporcije i udobnost svakodnevnog života.",
-    galleryCount: 13,
+    galleryCount: 8,
     imageWidth: 1536,
     imageHeight: 1152,
   },
@@ -303,7 +287,7 @@ export const portfolioProjects: PortfolioProject[] = [
     location: "Lovran",
     description:
       "Rezidencijalni projekt uz more u kojem su arhitektura, pogled i svakodnevni život povezani u otvorenu, skladnu cjelinu.",
-    galleryCount: 19,
+    galleryCount: 18,
     imageWidth: 2560,
     imageHeight: 1066,
   },
@@ -325,7 +309,7 @@ export const portfolioProjects: PortfolioProject[] = [
     location: "Hrvatska / Slovenija",
     description:
       "Poslovni i izložbeni prostori Ekosen oblikovani su tako da arhitektura interijera jasno predstavi proizvod, tehnologiju i identitet brenda.",
-    galleryCount: 4,
+    galleryCount: 1,
     imageWidth: 2560,
     imageHeight: 1920,
   },
@@ -336,20 +320,9 @@ export const portfolioProjects: PortfolioProject[] = [
     location: "Hrvatska",
     description:
       "Svijetao beauty interijer u kojem funkcionalan radni prostor prati nježna paleta, čiste linije i prepoznatljivi detalji prilagođeni identitetu salona.",
-    galleryCount: 6,
+    galleryCount: 5,
     imageWidth: 1500,
     imageHeight: 1000,
-  },
-  {
-    slug: "wine-bar",
-    title: "Wine bar",
-    category: "Ugostiteljski interijer",
-    location: "Europa",
-    description:
-      "Topao i sofisticiran interijer wine bara, oblikovan kroz tamne tonove, preciznu rasvjetu i atmosferu namijenjenu sporijem uživanju.",
-    galleryCount: 2,
-    imageWidth: 735,
-    imageHeight: 1058,
   },
   {
     slug: "od-svega-po-malo",
@@ -358,7 +331,7 @@ export const portfolioProjects: PortfolioProject[] = [
     location: "Europa · SAD · Azija",
     description:
       "Dodatni izbor realizacija koji pokazuje širinu prostora, stilova i tipologija na kojima je Davini radio.",
-    galleryCount: 56,
+    galleryCount: 55,
     imageWidth: 2560,
     imageHeight: 1086,
   },

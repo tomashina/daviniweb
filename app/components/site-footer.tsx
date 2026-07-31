@@ -10,6 +10,14 @@ export default function SiteFooter() {
       </a>
       <p>Davini d.o.o. · Zagreb, Hrvatska</p>
       <p>© {new Date().getFullYear()} Davini. Sva prava pridržana.</p>
+      <a
+        className="footer-credit"
+        href="https://www.agmedia.hr"
+        target="_blank"
+        rel="noopener"
+      >
+        Web by: AG media
+      </a>
     </footer>
   );
 }

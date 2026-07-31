@@ -2,13 +2,14 @@
 import ContactSection from "./components/contact-section";
 import SiteFooter from "./components/site-footer";
 import SiteHeader from "./components/site-header";
+import { portfolioImagePath } from "./content";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "./site-config";
 
 const projects = [
   {
     title: "Vila Kostrena",
     type: "Rezidencijalni interijer",
-    image: "/portfolio/vila-kostrena/01.webp",
+    image: portfolioImagePath("vila-kostrena"),
     href: "/portfolio/vila-kostrena/",
     width: 1600,
     height: 900,
@@ -17,7 +18,7 @@ const projects = [
   {
     title: "Vila Lovran",
     type: "Rezidencijalni interijer",
-    image: "/portfolio/vila-lovran/01.webp",
+    image: portfolioImagePath("vila-lovran"),
     href: "/portfolio/vila-lovran/",
     width: 2560,
     height: 1066,
@@ -26,7 +27,7 @@ const projects = [
   {
     title: "Hotel Plaza Pag",
     type: "Hotelski interijer",
-    image: "/portfolio/hotel-plaza-pag/01.webp",
+    image: portfolioImagePath("hotel-plaza-pag"),
     href: "/portfolio/hotel-plaza-pag/",
     width: 2390,
     height: 1792,
@@ -35,28 +36,28 @@ const projects = [
   {
     title: "Veterinarska poliklinika Vetti",
     type: "Veterinarski interijer",
-    image: "/portfolio/vetti/01.webp",
+    image: portfolioImagePath("vetti"),
     href: "/portfolio/vetti/",
     width: 1600,
     height: 900,
     className: "",
   },
   {
-    title: "Boutique San Marco",
-    type: "Prodajni interijer",
-    image: "/portfolio/boutique-san-marco/01.webp",
-    href: "/portfolio/boutique-san-marco/",
-    width: 1000,
-    height: 1000,
+    title: "Skin Clinic Ariderma",
+    type: "Beauty & wellness interijer",
+    image: portfolioImagePath("ariderma"),
+    href: "/portfolio/ariderma/",
+    width: 1708,
+    height: 1708,
     className: "project-tall",
   },
   {
-    title: "Caffe bar Face 2 Face",
-    type: "Ugostiteljski interijer",
-    image: "/portfolio/faces-2-face/01.webp",
-    href: "/portfolio/faces-2-face/",
-    width: 960,
-    height: 422,
+    title: "Arsano Medical Group",
+    type: "Poslovni i zdravstveni interijer",
+    image: portfolioImagePath("arsano-medical-group"),
+    href: "/portfolio/arsano-medical-group/",
+    width: 1600,
+    height: 900,
     className: "",
   },
 ];
@@ -314,11 +315,11 @@ export default function Home() {
       <section className="design-story">
         <div className="story-image story-image-organic">
           <img
-            src="/portfolio/vila-pantovcak/04.webp"
+            src={portfolioImagePath("vila-pantovcak")}
             sizes="(max-width: 820px) calc(100vw - 40px), 24vw"
             alt="Organski oblikovan interijer inspiriran prirodom"
             width="1536"
-            height="608"
+            height="1152"
             loading="lazy"
           />
           <span>Organic design</span>
@@ -337,11 +338,11 @@ export default function Home() {
         </div>
         <div className="story-image story-image-detail">
           <img
-            src="/portfolio/vila-lovran/04.webp"
+            src={portfolioImagePath("vila-lovran", 4)}
             sizes="24vw"
             alt="Moderan interijer kupaonice u tamnim tonovima"
-            width="2560"
-            height="1066"
+            width="1574"
+            height="1280"
             loading="lazy"
           />
           <span>Modern design</span>
