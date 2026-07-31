@@ -149,9 +149,6 @@ export default function Home() {
             <a className="button button-gold" href="#portfolio">
               Istražite projekte
             </a>
-            <a className="text-link" href="/davini-portfolio.pdf" download>
-              Preuzmite portfolio
-            </a>
           </div>
         </div>
 

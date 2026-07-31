@@ -82,9 +82,6 @@ export default function PortfolioPage() {
             </div>
           ))}
         </div>
-        <a className="button button-outline" href="/davini-portfolio.pdf">
-          Preuzmite izvorni portfolio
-        </a>
       </section>
 
       <ContactSection />

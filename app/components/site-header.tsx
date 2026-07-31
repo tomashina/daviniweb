@@ -43,9 +43,7 @@ export default function SiteHeader() {
               {label}
             </a>
           ))}
-          <a className="mobile-menu-contact" href="/#kontakt">
-            Započnimo projekt
-          </a>
+          <a href="/#kontakt">Kontakt</a>
         </nav>
       </details>
     </header>
