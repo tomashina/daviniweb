@@ -21,7 +21,7 @@
     ]
   },
   "app/scroll-animations.tsx": {
-    "file": "assets/scroll-animations-CQR4yMv0.js",
+    "file": "assets/scroll-animations-IeDoN_m4.js",
     "name": "scroll-animations",
     "src": "app/scroll-animations.tsx",
     "isDynamicEntry": true,
@@ -31,7 +31,7 @@
     ]
   },
   "node_modules/vinext/dist/shims/layout-segment-context.js": {
-    "file": "assets/layout-segment-context-CyvO-tRd.js",
+    "file": "assets/layout-segment-context-BFfMQMOV.js",
     "name": "layout-segment-context",
     "src": "node_modules/vinext/dist/shims/layout-segment-context.js",
     "isDynamicEntry": true,
@@ -42,7 +42,7 @@
     ]
   },
   "virtual:vinext-app-browser-entry": {
-    "file": "assets/index-BUMTt5Og.js",
+    "file": "assets/index-2O7aVbEX.js",
     "name": "index",
     "src": "virtual:vinext-app-browser-entry",
     "isEntry": true,
