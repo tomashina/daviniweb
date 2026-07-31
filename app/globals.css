@@ -982,9 +982,8 @@ footer p {
 
 .motion-char-mask {
   display: inline-block;
-  overflow: hidden;
-  padding-bottom: 0.06em;
-  vertical-align: bottom;
+  overflow: visible;
+  vertical-align: baseline;
 }
 
 .motion-char {

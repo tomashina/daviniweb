@@ -84,4 +84,8 @@ test("build contains production entry points and responsive image variants", asy
     "utf8",
   );
   assert.match(css, /@media \(max-width: 820px\)[\s\S]*?\.hero-visual\s*\{[\s\S]*?aspect-ratio:\s*1/);
+  assert.match(
+    css,
+    /\.motion-char-mask\s*\{[\s\S]*?overflow:\s*visible;[\s\S]*?vertical-align:\s*baseline;/,
+  );
 });
