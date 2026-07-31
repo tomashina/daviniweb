@@ -26,7 +26,10 @@ export default function SiteHeader() {
       </a>
 
       <details className="mobile-nav">
-        <summary aria-label="Otvori navigacijski izbornik">
+        <summary
+          aria-expanded="false"
+          aria-label="Otvori navigacijski izbornik"
+        >
           <span className="menu-icon" aria-hidden="true">
             <span />
             <span />
@@ -34,14 +37,16 @@ export default function SiteHeader() {
           </span>
           <span className="visually-hidden">Izbornik</span>
         </summary>
-        <div>
+        <nav className="mobile-menu-panel" aria-label="Mobilna navigacija">
           {navigation.map(([label, href]) => (
             <a href={href} key={href}>
               {label}
             </a>
           ))}
-          <a href="/#kontakt">Kontakt</a>
-        </div>
+          <a className="mobile-menu-contact" href="/#kontakt">
+            Započnimo projekt
+          </a>
+        </nav>
       </details>
     </header>
   );

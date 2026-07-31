@@ -105,11 +105,66 @@ function splitCharacters(element: HTMLElement) {
 
 export default function ScrollAnimations() {
   useEffect(() => {
+    const root = document.documentElement;
+    const mobileMenu =
+      document.querySelector<HTMLDetailsElement>(".mobile-nav");
+    const mobileMenuSummary =
+      mobileMenu?.querySelector<HTMLElement>("summary");
+    const mobileMenuLinks = Array.from(
+      document.querySelectorAll<HTMLAnchorElement>(".mobile-nav a"),
+    );
+
+    const syncMobileMenu = () => {
+      const isOpen = Boolean(mobileMenu?.open);
+
+      root.classList.toggle("mobile-menu-open", isOpen);
+      mobileMenuSummary?.setAttribute("aria-expanded", String(isOpen));
+      mobileMenuSummary?.setAttribute(
+        "aria-label",
+        isOpen
+          ? "Zatvori navigacijski izbornik"
+          : "Otvori navigacijski izbornik",
+      );
+    };
+
+    const closeMobileMenu = () => {
+      if (mobileMenu?.open) {
+        mobileMenu.removeAttribute("open");
+        syncMobileMenu();
+      }
+    };
+
+    const closeMobileMenuOnEscape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape" || !mobileMenu?.open) return;
+
+      closeMobileMenu();
+      mobileMenuSummary?.focus();
+    };
+
+    mobileMenu?.addEventListener("toggle", syncMobileMenu);
+    mobileMenuLinks.forEach((link) =>
+      link.addEventListener("click", closeMobileMenu),
+    );
+    window.addEventListener("keydown", closeMobileMenuOnEscape);
+    window.addEventListener("resize", closeMobileMenu);
+    window.addEventListener("wheel", closeMobileMenu, { passive: true });
+    window.addEventListener("touchmove", closeMobileMenu, { passive: true });
+    syncMobileMenu();
+
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      return;
+      return () => {
+        mobileMenu?.removeEventListener("toggle", syncMobileMenu);
+        mobileMenuLinks.forEach((link) =>
+          link.removeEventListener("click", closeMobileMenu),
+        );
+        window.removeEventListener("keydown", closeMobileMenuOnEscape);
+        window.removeEventListener("resize", closeMobileMenu);
+        window.removeEventListener("wheel", closeMobileMenu);
+        window.removeEventListener("touchmove", closeMobileMenu);
+        root.classList.remove("mobile-menu-open");
+      };
     }
 
-    const root = document.documentElement;
     const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
     const sectionHeadings = Array.from(
       document.querySelectorAll<HTMLElement>("main h2"),
@@ -118,11 +173,6 @@ export default function ScrollAnimations() {
       document.querySelectorAll<HTMLElement>("main h1"),
     );
     const header = document.querySelector<HTMLElement>(".site-header");
-    const mobileMenu =
-      document.querySelector<HTMLDetailsElement>(".mobile-nav");
-    const mobileMenuLinks = Array.from(
-      document.querySelectorAll<HTMLAnchorElement>(".mobile-nav a"),
-    );
     const lenis = isTouchDevice
       ? null
       : new Lenis({
@@ -133,16 +183,6 @@ export default function ScrollAnimations() {
           wheelMultiplier: 1,
           anchors: true,
         });
-
-    const closeMobileMenu = () => {
-      if (mobileMenu?.open) {
-        mobileMenu.removeAttribute("open");
-      }
-    };
-
-    mobileMenuLinks.forEach((link) =>
-      link.addEventListener("click", closeMobileMenu),
-    );
 
     sectionHeadings.forEach(splitWords);
     pageHeadings.forEach(splitCharacters);
@@ -307,7 +347,6 @@ export default function ScrollAnimations() {
     };
 
     const requestMotionUpdate = () => {
-      closeMobileMenu();
       if (!frame) {
         frame = window.requestAnimationFrame(updateMotion);
       }
@@ -326,12 +365,21 @@ export default function ScrollAnimations() {
       lenis?.destroy();
       window.cancelAnimationFrame(heroFrame);
       if (frame) window.cancelAnimationFrame(frame);
+      mobileMenu?.removeEventListener("toggle", syncMobileMenu);
       mobileMenuLinks.forEach((link) =>
         link.removeEventListener("click", closeMobileMenu),
       );
+      window.removeEventListener("keydown", closeMobileMenuOnEscape);
+      window.removeEventListener("resize", closeMobileMenu);
+      window.removeEventListener("wheel", closeMobileMenu);
+      window.removeEventListener("touchmove", closeMobileMenu);
       window.removeEventListener("scroll", requestMotionUpdate);
       window.removeEventListener("resize", requestMotionUpdate);
-      root.classList.remove("motion-ready", "hero-entered");
+      root.classList.remove(
+        "mobile-menu-open",
+        "motion-ready",
+        "hero-entered",
+      );
     };
   }, []);
 

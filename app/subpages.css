@@ -925,11 +925,12 @@
   }
 
   .organic-feature-image {
-    min-height: 520px;
+    aspect-ratio: 274 / 252;
+    min-height: 0;
   }
 
   .organic-feature-copy {
-    padding: 80px 20px;
+    padding: 48px 20px 80px;
   }
 
   .style-grid article {
