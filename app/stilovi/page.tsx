@@ -67,13 +67,12 @@ export default function StylesPage() {
       <section className="organic-feature">
         <div className="organic-feature-image">
           <img
-            src="/images/organic-interior.jpg"
-            srcSet="/images/organic-interior.jpg 274w, /images/organic-interior-2x.webp 548w"
+            src="/portfolio/vila-pantovcak/04.webp"
             sizes="(max-width: 820px) 100vw, 40vw"
-            width="274"
-            height="252"
+            width="1536"
+            height="608"
             loading="lazy"
-            alt="Organski oblikovan interijer"
+            alt="Suvremeni interijer s organskim oblicima i prirodnim materijalima"
           />
         </div>
         <div className="organic-feature-copy">

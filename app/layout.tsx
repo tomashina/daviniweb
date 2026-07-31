@@ -27,7 +27,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  manifest: "/manifest.webmanifest",
   icons: {
     icon: [
       { url: "/davini-d-dark.svg", type: "image/svg+xml" },
@@ -56,9 +55,9 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     images: [
       {
-        url: "/images/hero-interior-2x.jpg",
-        width: 1354,
-        height: 822,
+        url: "/site-assets/hero-1920.webp",
+        width: 1920,
+        height: 814,
         alt: "Interijer koji je oblikovao Davini studio",
       },
     ],
@@ -67,7 +66,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Davini | Dizajn interijera i arhitektura Zagreb",
     description: SITE_DESCRIPTION,
-    images: ["/images/hero-interior-2x.jpg"],
+    images: ["/site-assets/hero-1920.webp"],
   },
   robots: {
     index: true,
@@ -96,6 +95,7 @@ export default function RootLayout({
   return (
     <html lang="hr">
       <head>
+        <link rel="manifest" href="/manifest.webmanifest" />
         <link
           rel="preload"
           href="/fonts/satoshi-medium.woff2"

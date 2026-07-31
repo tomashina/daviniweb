@@ -858,7 +858,7 @@ h2 em {
 .contact {
   background:
     linear-gradient(rgba(18, 17, 15, 0.91), rgba(18, 17, 15, 0.91)),
-    url("/images/residential-bedroom-hq.webp") center / cover;
+    url("/site-assets/contact-1280.webp") center / cover;
   padding: 130px 6vw 100px;
 }
 
@@ -1295,6 +1295,13 @@ footer p {
 
   h1 {
     font-size: clamp(48px, 14vw, 68px);
+  }
+
+  .motion-ready main h1 .motion-char,
+  .motion-ready.hero-entered main h1 .motion-char {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 
   .hero-lead {

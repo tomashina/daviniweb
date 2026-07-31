@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+/* eslint-disable @next/next/no-html-link-for-pages */
 import { notFound } from "next/navigation";
 import ContactSection from "../../components/contact-section";
 import ProjectLightbox from "../../components/project-lightbox";

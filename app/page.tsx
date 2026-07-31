@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import ContactSection from "./components/contact-section";
 import SiteFooter from "./components/site-footer";
 import SiteHeader from "./components/site-header";
@@ -7,55 +8,55 @@ const projects = [
   {
     title: "Vila Kostrena",
     type: "Rezidencijalni interijer",
-    image: "/images/villa-kostrena.jpg",
-    image2x: "/images/villa-kostrena-2x.webp",
-    width: 678,
-    height: 278,
+    image: "/portfolio/vila-kostrena/01.webp",
+    href: "/portfolio/vila-kostrena/",
+    width: 1600,
+    height: 900,
     className: "project-wide",
   },
   {
-    title: "Wine bar",
-    type: "Ugostiteljski interijer",
-    image: "/images/wine-bar.jpg",
-    image2x: "/images/wine-bar-2x.webp",
-    width: 353,
-    height: 189,
+    title: "Vila Lovran",
+    type: "Rezidencijalni interijer",
+    image: "/portfolio/vila-lovran/01.webp",
+    href: "/portfolio/vila-lovran/",
+    width: 2560,
+    height: 1066,
     className: "",
   },
   {
-    title: "Hotel Marabella",
+    title: "Hotel Plaza Pag",
     type: "Hotelski interijer",
-    image: "/images/hotel-marabella.jpg",
-    image2x: "/images/hotel-marabella-2x.webp",
-    width: 305,
-    height: 391,
+    image: "/portfolio/hotel-plaza-pag/01.webp",
+    href: "/portfolio/hotel-plaza-pag/",
+    width: 2390,
+    height: 1792,
     className: "project-tall",
   },
   {
     title: "Veterinarska poliklinika Vetti",
-    type: "Zdravstveni interijer",
-    image: "/images/vetti-clinic.jpg",
-    image2x: "/images/vetti-clinic-2x.webp",
-    width: 354,
-    height: 229,
+    type: "Veterinarski interijer",
+    image: "/portfolio/vetti/01.webp",
+    href: "/portfolio/vetti/",
+    width: 1600,
+    height: 900,
     className: "",
   },
   {
-    title: "Beauty salon Teoma",
-    type: "Beauty interijer",
-    image: "/images/beauty-salon.jpg",
-    image2x: "/images/beauty-salon-2x.webp",
-    width: 303,
-    height: 387,
+    title: "Boutique San Marco",
+    type: "Prodajni interijer",
+    image: "/portfolio/boutique-san-marco/01.webp",
+    href: "/portfolio/boutique-san-marco/",
+    width: 1000,
+    height: 1000,
     className: "project-tall",
   },
   {
-    title: "Faces 2 Faces",
-    type: "Club & bar",
-    image: "/images/faces-club.jpg",
-    image2x: "/images/faces-club-2x.webp",
-    width: 354,
-    height: 229,
+    title: "Caffe bar Face 2 Face",
+    type: "Ugostiteljski interijer",
+    image: "/portfolio/faces-2-face/01.webp",
+    href: "/portfolio/faces-2-face/",
+    width: 960,
+    height: 422,
     className: "",
   },
 ];
@@ -107,7 +108,7 @@ export default function Home() {
     name: SITE_NAME,
     url: SITE_URL,
     description: SITE_DESCRIPTION,
-    image: `${SITE_URL}/images/hero-interior-2x.jpg`,
+    image: `${SITE_URL}/site-assets/hero-1920.webp`,
     email: "davini.casa@gmail.com",
     telephone: "+385953871448",
     address: {
@@ -154,12 +155,12 @@ export default function Home() {
 
         <div className="hero-visual">
           <img
-            src="/images/hero-interior-420.jpg"
+            src="/site-assets/hero-1280.webp"
             alt="Elegantno uređen dnevni boravak i blagovaonica"
-            width="677"
-            height="411"
+            width="1280"
+            height="543"
             fetchPriority="high"
-            srcSet="/images/hero-interior-420.jpg 420w, /images/hero-interior.jpg 677w, /images/hero-interior-2x.webp 1354w"
+            srcSet="/site-assets/hero-640.webp 640w, /site-assets/hero-1280.webp 1280w, /site-assets/hero-1920.webp 1920w"
             sizes="(max-width: 820px) calc(100vw - 40px), 53vw"
           />
           <div className="hero-image-label">
@@ -276,13 +277,13 @@ export default function Home() {
 
         <div className="project-grid">
           {projects.map((project, index) => (
-            <article
+            <a
               className={`project-card ${project.className}`}
+              href={project.href}
               key={`${project.title}-${index}`}
             >
               <img
                 src={project.image}
-                srcSet={`${project.image} ${project.width}w, ${project.image2x} ${project.width * 2}w`}
                 sizes={
                   project.className === "project-wide"
                     ? "(max-width: 820px) calc(100vw - 40px), (max-width: 1100px) 44vw, 59vw"
@@ -299,7 +300,7 @@ export default function Home() {
                   <h3>{project.title}</h3>
                 </div>
               </div>
-            </article>
+            </a>
           ))}
         </div>
 
@@ -313,12 +314,11 @@ export default function Home() {
       <section className="design-story">
         <div className="story-image story-image-organic">
           <img
-            src="/images/organic-interior.jpg"
-            srcSet="/images/organic-interior.jpg 274w, /images/organic-interior-2x.webp 548w"
+            src="/portfolio/vila-pantovcak/04.webp"
             sizes="(max-width: 820px) calc(100vw - 40px), 24vw"
             alt="Organski oblikovan interijer inspiriran prirodom"
-            width="274"
-            height="252"
+            width="1536"
+            height="608"
             loading="lazy"
           />
           <span>Organic design</span>
@@ -337,12 +337,11 @@ export default function Home() {
         </div>
         <div className="story-image story-image-detail">
           <img
-            src="/images/bespoke-bathroom.jpg"
-            srcSet="/images/bespoke-bathroom.jpg 354w, /images/bespoke-bathroom-2x.webp 708w"
+            src="/portfolio/vila-lovran/04.webp"
             sizes="24vw"
             alt="Moderan interijer kupaonice u tamnim tonovima"
-            width="354"
-            height="190"
+            width="2560"
+            height="1066"
             loading="lazy"
           />
           <span>Modern design</span>
