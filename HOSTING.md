@@ -6,13 +6,18 @@ Node.js. Produkcijska adresa je `https://www.davini.hr`.
 ## cPanel / Apache
 
 1. U cPanelu uključite SSL za `davini.hr` i `www.davini.hr`.
-2. Raspakirajte `davini-site-upload.zip`.
-3. Prenesite **sadržaj** raspakirane mape izravno u `public_html` domene.
-4. Provjerite da su `index.html`, `.htaccess`, `assets`, `portfolio`,
-   `site-assets`, `fonts`, `robots.txt` i `sitemap.xml` izravno u korijenu.
+2. Učitajte `davini-site-upload.zip` u `public_html` i tamo ga raspakirajte.
+3. ZIP već sadrži gornju mapu `public`, pa će se stranica raspakirati u
+   `public_html/public`, što je document root postavljen u cPanelu.
+4. Provjerite da su `public/index.html`, `public/.htaccess`, `public/assets`,
+   `public/portfolio`, `public/site-assets`, `public/fonts`,
+   `public/robots.txt` i `public/sitemap.xml` na svom mjestu.
 5. Otvorite `https://www.davini.hr` i provjerite nekoliko portfolio stranica.
 
-Uključeni `.htaccess` automatski preusmjerava HTTP i domenu bez `www` na
+Nemojte ZIP raspakirati unutar `public_html/public`, jer bi tada nastala
+pogrešna putanja `public_html/public/public`.
+
+Uključeni `public/.htaccess` automatski preusmjerava HTTP i domenu bez `www` na
 `https://www.davini.hr`, uključuje kompresiju, cache i sigurnosna zaglavlja.
 
 ## DNS
@@ -21,6 +26,17 @@ Uključeni `.htaccess` automatski preusmjerava HTTP i domenu bez `www` na
 - `www` treba biti CNAME na `davini.hr` ili pokazivati na isti hosting račun.
 
 ## Ponovna izrada
+
+Google kodovi upisuju se u lokalni `.env.local`:
+
+```dotenv
+NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX
+NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=verification-kod-iz-search-consolea
+```
+
+Ako je pojedina vrijednost prazna, pripadajući Google kod neće se dodati u
+stranicu. Nakon promjene konfiguracije potrebno je ponovno izgraditi i učitati
+paket:
 
 ```bash
 npm run build

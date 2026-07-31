@@ -3,7 +3,12 @@ import ContactSection from "../components/contact-section";
 import InnerHero from "../components/inner-hero";
 import SiteFooter from "../components/site-footer";
 import SiteHeader from "../components/site-header";
-import { designStyles, palette, portfolioImagePath } from "../content";
+import {
+  designStyles,
+  palette,
+  portfolioPreviewPath,
+  portfolioPreviewSrcSet,
+} from "../content";
 
 export const metadata: Metadata = {
   title: "Stilovi dizajna interijera",
@@ -67,7 +72,8 @@ export default function StylesPage() {
       <section className="organic-feature">
         <div className="organic-feature-image">
           <img
-            src={portfolioImagePath("vila-pantovcak")}
+            src={portfolioPreviewPath("vila-pantovcak", 1, 1280)}
+            srcSet={portfolioPreviewSrcSet("vila-pantovcak")}
             sizes="(max-width: 820px) 100vw, 40vw"
             width="1536"
             height="1152"

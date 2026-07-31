@@ -17,6 +17,8 @@ from PIL import Image, ImageOps
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".tif", ".tiff"}
 MIN_LONG_EDGE = 1500
 MIN_SHORT_EDGE = 800
+PREVIEW_WIDTHS = (640, 1280, 1920)
+PREVIEW_QUALITY = {640: 80, 1280: 82, 1920: 84}
 
 
 def image_files(folder: Path, recursive: bool = False) -> list[Path]:
@@ -226,12 +228,41 @@ def convert(source: Path, destination: Path, max_edge: int, quality: int) -> tup
         return image.size
 
 
+def convert_width(
+    source: Path,
+    destination: Path,
+    target_width: int,
+    quality: int,
+) -> tuple[int, int]:
+    """Create an exact-width responsive preview while preserving aspect ratio."""
+    with Image.open(source) as original:
+        image = ImageOps.exif_transpose(original)
+        if image.mode in {"RGBA", "LA"} or (image.mode == "P" and "transparency" in image.info):
+            rgba = image.convert("RGBA")
+            background = Image.new("RGBA", rgba.size, (246, 241, 233, 255))
+            background.alpha_composite(rgba)
+            image = background.convert("RGB")
+        else:
+            image = image.convert("RGB")
+
+        target_height = round(image.height * target_width / image.width)
+        image = image.resize(
+            (target_width, target_height),
+            Image.Resampling.LANCZOS,
+            reducing_gap=3.0,
+        )
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        image.save(destination, "WEBP", quality=quality, method=6, exact=True)
+        return image.size
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("source", type=Path)
     parser.add_argument("destination", type=Path)
     parser.add_argument("--max-edge", type=int, default=2560)
     parser.add_argument("--quality", type=int, default=90)
+    parser.add_argument("--previews-only", action="store_true")
     args = parser.parse_args()
 
     mapped_galleries = build_galleries(args.source)
@@ -258,26 +289,39 @@ def main() -> None:
         if quality_sources:
             galleries.append((slug, quality_sources))
 
-    for stale in args.destination.glob("*/*.webp"):
-        stale.unlink()
-
     print(
         f"Importing {sum(len(sources) for _, sources in galleries)} quality images "
         f"into {len(galleries)} projects; skipping {len(skipped)} undersized sources"
     )
-    for slug, sources in galleries:
-        project_folder = args.destination / slug
-        project_folder.mkdir(parents=True, exist_ok=True)
-        for stale in project_folder.glob("*.webp"):
+    if not args.previews_only:
+        for stale in args.destination.glob("*/*.webp"):
             stale.unlink()
-        first_size = None
-        for index, source in enumerate(sources, start=1):
-            destination = project_folder / f"{index:02d}.webp"
-            size = convert(source, destination, args.max_edge, args.quality)
-            first_size = first_size or size
-        print(f"{slug}: {len(sources)} images, cover {first_size[0]}x{first_size[1]}")
 
-    for project_folder in args.destination.iterdir():
+        for slug, sources in galleries:
+            project_folder = args.destination / slug
+            project_folder.mkdir(parents=True, exist_ok=True)
+            first_size = None
+            for index, source in enumerate(sources, start=1):
+                destination = project_folder / f"{index:02d}.webp"
+                size = convert(source, destination, args.max_edge, args.quality)
+                first_size = first_size or size
+            print(f"{slug}: {len(sources)} images, cover {first_size[0]}x{first_size[1]}")
+
+        for project_folder in args.destination.iterdir():
+            if project_folder.is_dir() and not any(project_folder.iterdir()):
+                project_folder.rmdir()
+
+    preview_root = args.destination.parent / "portfolio-previews"
+    for stale in preview_root.glob("*/*.webp"):
+        stale.unlink()
+    for slug, sources in galleries:
+        for index, source in enumerate(sources, start=1):
+            for width in PREVIEW_WIDTHS:
+                destination = preview_root / slug / f"{index:02d}-{width}.webp"
+                convert_width(source, destination, width, PREVIEW_QUALITY[width])
+        print(f"{slug}: {len(sources) * len(PREVIEW_WIDTHS)} responsive previews")
+
+    for project_folder in preview_root.iterdir():
         if project_folder.is_dir() and not any(project_folder.iterdir()):
             project_folder.rmdir()
 

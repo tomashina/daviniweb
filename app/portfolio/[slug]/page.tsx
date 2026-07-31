@@ -5,7 +5,12 @@ import ContactSection from "../../components/contact-section";
 import ProjectLightbox from "../../components/project-lightbox";
 import SiteFooter from "../../components/site-footer";
 import SiteHeader from "../../components/site-header";
-import { portfolioImagePath, portfolioProjects } from "../../content";
+import {
+  portfolioImagePath,
+  portfolioPreviewPath,
+  portfolioPreviewSrcSet,
+  portfolioProjects,
+} from "../../content";
 import { SITE_URL } from "../../site-config";
 
 type ProjectPageProps = {
@@ -104,7 +109,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             aria-label={`Povećaj fotografiju: ${project.title}`}
           >
             <img
-              src={gallery[0]}
+              src={portfolioPreviewPath(project.slug)}
+              srcSet={portfolioPreviewSrcSet(project.slug)}
+              sizes="(max-width: 820px) 100vw, 64vw"
               alt={`${project.title} — naslovna fotografija`}
               width={project.imageWidth}
               height={project.imageHeight}
@@ -132,7 +139,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 aria-label={`Povećaj fotografiju ${index + 2}: ${project.title}`}
               >
                 <img
-                  src={image}
+                  src={portfolioPreviewPath(project.slug, index + 2)}
+                  srcSet={portfolioPreviewSrcSet(project.slug, index + 2)}
+                  sizes={isWide ? "100vw" : "(max-width: 820px) 100vw, 50vw"}
                   alt={`${project.title} — fotografija ${index + 2}`}
                   width={project.imageWidth}
                   height={project.imageHeight}

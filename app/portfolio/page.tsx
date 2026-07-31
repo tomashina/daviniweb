@@ -4,7 +4,8 @@ import InnerHero from "../components/inner-hero";
 import SiteFooter from "../components/site-footer";
 import SiteHeader from "../components/site-header";
 import {
-  portfolioImagePath,
+  portfolioPreviewPath,
+  portfolioPreviewSrcSet,
   portfolioProjects,
   referenceProjects,
 } from "../content";
@@ -68,7 +69,13 @@ export default function PortfolioPage() {
               key={project.slug}
             >
               <img
-                src={portfolioImagePath(project.slug)}
+                src={portfolioPreviewPath(project.slug)}
+                srcSet={portfolioPreviewSrcSet(project.slug)}
+                sizes={
+                  isWide
+                    ? "(max-width: 820px) 100vw, 100vw"
+                    : "(max-width: 820px) 100vw, 50vw"
+                }
                 alt={project.title}
                 width={project.imageWidth}
                 height={project.imageHeight}

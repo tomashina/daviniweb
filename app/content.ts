@@ -169,6 +169,20 @@ export function portfolioImagePath(slug: string, index = 1) {
   return `/portfolio/${slug}/${String(index).padStart(2, "0")}.webp?v=${PORTFOLIO_IMAGE_VERSION}`;
 }
 
+export function portfolioPreviewPath(
+  slug: string,
+  index = 1,
+  width: 640 | 1280 | 1920 = 1280,
+) {
+  return `/portfolio-previews/${slug}/${String(index).padStart(2, "0")}-${width}.webp?v=${PORTFOLIO_IMAGE_VERSION}`;
+}
+
+export function portfolioPreviewSrcSet(slug: string, index = 1) {
+  return ([640, 1280, 1920] as const)
+    .map((width) => `${portfolioPreviewPath(slug, index, width)} ${width}w`)
+    .join(", ");
+}
+
 export const portfolioProjects: PortfolioProject[] = [
   {
     slug: "urocentar",

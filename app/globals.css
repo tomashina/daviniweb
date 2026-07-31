@@ -1342,8 +1342,10 @@ footer p {
   }
 
   .hero-visual {
-    min-height: 460px;
+    aspect-ratio: 1;
+    min-height: 0;
     order: 2;
+    width: 100%;
   }
 
   .hero-side-note {

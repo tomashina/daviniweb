@@ -1,7 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import ScrollAnimations from "./scroll-animations";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "./site-config";
+import {
+  GOOGLE_ANALYTICS_ID,
+  GOOGLE_SITE_VERIFICATION,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_URL,
+} from "./site-config";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -79,6 +85,9 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+  verification: GOOGLE_SITE_VERIFICATION
+    ? { google: GOOGLE_SITE_VERIFICATION }
+    : undefined,
 };
 
 export const viewport: Viewport = {
@@ -103,6 +112,21 @@ export default function RootLayout({
           type="font/woff2"
           crossOrigin="anonymous"
         />
+        {GOOGLE_ANALYTICS_ID ? (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config',${JSON.stringify(
+                  GOOGLE_ANALYTICS_ID,
+                )});`,
+              }}
+            />
+          </>
+        ) : null}
       </head>
       <body>
         {children}
