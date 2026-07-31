@@ -13,6 +13,12 @@ export const metadata: Metadata = {
 };
 
 export default function PortfolioPage() {
+  const defaultWideCardCount = portfolioProjects.filter(
+    (_, index) => index % 5 === 0,
+  ).length;
+  const expandLastCard =
+    (portfolioProjects.length + defaultWideCardCount) % 2 !== 0;
+
   return (
     <main className="subpage">
       <SiteHeader />
@@ -46,27 +52,33 @@ export default function PortfolioPage() {
       </section>
 
       <section className="portfolio-index" aria-label="Davini projekti">
-        {portfolioProjects.map((project, index) => (
-          <a
-            className={`portfolio-index-card ${index % 5 === 0 ? "is-wide" : ""}`}
-            href={`/portfolio/${project.slug}/`}
-            key={project.slug}
-          >
-            <img
-              src={`/portfolio/${project.slug}/01.webp`}
-              alt={project.title}
-              width={project.imageWidth}
-              height={project.imageHeight}
-              loading={index < 2 ? "eager" : "lazy"}
-            />
-            <div>
-              <p>
-                {project.category} · {project.location}
-              </p>
-              <h2>{project.title}</h2>
-            </div>
-          </a>
-        ))}
+        {portfolioProjects.map((project, index) => {
+          const isWide =
+            index % 5 === 0 ||
+            (expandLastCard && index === portfolioProjects.length - 1);
+
+          return (
+            <a
+              className={`portfolio-index-card ${isWide ? "is-wide" : ""}`}
+              href={`/portfolio/${project.slug}/`}
+              key={project.slug}
+            >
+              <img
+                src={`/portfolio/${project.slug}/01.webp`}
+                alt={project.title}
+                width={project.imageWidth}
+                height={project.imageHeight}
+                loading={index < 2 ? "eager" : "lazy"}
+              />
+              <div>
+                <p>
+                  {project.category} · {project.location}
+                </p>
+                <h2>{project.title}</h2>
+              </div>
+            </a>
+          );
+        })}
       </section>
 
       <section className="content-section references-section">

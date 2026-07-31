@@ -59,6 +59,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     (_, index) =>
       `/portfolio/${project.slug}/${String(index + 1).padStart(2, "0")}.webp`,
   );
+  const galleryImages = gallery.slice(1);
+  const expandLastImage = galleryImages.length % 2 === 0;
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
@@ -113,27 +115,33 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       </section>
 
       <section className="project-gallery" aria-label={`Galerija: ${project.title}`}>
-        {gallery.slice(1).map((image, index) => (
-          <figure
-            className={index % 5 === 0 ? "gallery-wide" : ""}
-            key={image}
-          >
-            <button
-              className="lightbox-trigger"
-              type="button"
-              data-lightbox-index={index + 1}
-              aria-label={`Povećaj fotografiju ${index + 2}: ${project.title}`}
+        {galleryImages.map((image, index) => {
+          const isWide =
+            index === 0 ||
+            (expandLastImage && index === galleryImages.length - 1);
+
+          return (
+            <figure
+              className={isWide ? "gallery-wide" : ""}
+              key={image}
             >
-              <img
-                src={image}
-                alt={`${project.title} — fotografija ${index + 2}`}
-                width={project.imageWidth}
-                height={project.imageHeight}
-                loading="lazy"
-              />
-            </button>
-          </figure>
-        ))}
+              <button
+                className="lightbox-trigger"
+                type="button"
+                data-lightbox-index={index + 1}
+                aria-label={`Povećaj fotografiju ${index + 2}: ${project.title}`}
+              >
+                <img
+                  src={image}
+                  alt={`${project.title} — fotografija ${index + 2}`}
+                  width={project.imageWidth}
+                  height={project.imageHeight}
+                  loading="lazy"
+                />
+              </button>
+            </figure>
+          );
+        })}
       </section>
 
       <ProjectLightbox images={gallery} projectTitle={project.title} />
