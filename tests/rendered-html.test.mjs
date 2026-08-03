@@ -53,12 +53,30 @@ test("renders responsive portfolio previews while keeping full lightbox images",
   assert.match(html, /portfolio\/vila-kostrena\/01\.webp/);
 });
 
+test("portfolio includes the new residential projects and removes retired ones", async () => {
+  const response = await render("/portfolio/");
+  assert.equal(response.status, 200);
+
+  const html = await response.text();
+  assert.match(html, /href="\/portfolio\/vila-gajnice\/"/);
+  assert.match(html, /href="\/portfolio\/vila-beograd-71\/"/);
+  assert.match(html, /href="\/portfolio\/stan-zagreb-139\/"/);
+  assert.match(html, /href="\/portfolio\/stan-211-zagreb\/"/);
+  assert.match(html, /href="\/portfolio\/stan-84\/"/);
+  assert.match(html, /href="\/portfolio\/apartman-zagreb-49\/"/);
+  assert.doesNotMatch(html, /vila-pantovcak|od-svega-po-malo/i);
+});
+
 test("build contains production entry points and responsive image variants", async () => {
   await Promise.all([
     access(new URL("../dist/client/index.html", import.meta.url)),
     access(new URL("../dist/client/.htaccess", import.meta.url)),
     access(new URL("../dist/client/robots.txt", import.meta.url)),
     access(new URL("../dist/client/sitemap.xml", import.meta.url)),
+    access(new URL("../dist/client/site-assets/hero-1536.webp", import.meta.url)),
+    access(
+      new URL("../dist/client/portfolio/vila-gajnice/index.html", import.meta.url),
+    ),
     access(
       new URL(
         "../dist/client/portfolio-previews/vila-kostrena/01-640.webp",
@@ -76,6 +94,27 @@ test("build contains production entry points and responsive image variants", asy
         "../dist/client/portfolio-previews/vila-kostrena/01-1920.webp",
         import.meta.url,
       ),
+    ),
+  ]);
+
+  await Promise.all([
+    assert.rejects(
+      access(
+        new URL(
+          "../dist/client/portfolio/vila-pantovcak/index.html",
+          import.meta.url,
+        ),
+      ),
+      { code: "ENOENT" },
+    ),
+    assert.rejects(
+      access(
+        new URL(
+          "../dist/client/portfolio/od-svega-po-malo/index.html",
+          import.meta.url,
+        ),
+      ),
+      { code: "ENOENT" },
     ),
   ]);
 

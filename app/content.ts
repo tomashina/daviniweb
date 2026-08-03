@@ -163,7 +163,7 @@ export type PortfolioProject = {
   imageHeight: number;
 };
 
-export const PORTFOLIO_IMAGE_VERSION = "20260731-quality";
+export const PORTFOLIO_IMAGE_VERSION = "20260803-projects";
 
 export function portfolioImagePath(slug: string, index = 1) {
   return `/portfolio/${slug}/${String(index).padStart(2, "0")}.webp?v=${PORTFOLIO_IMAGE_VERSION}`;
@@ -262,15 +262,70 @@ export const portfolioProjects: PortfolioProject[] = [
     imageHeight: 900,
   },
   {
-    slug: "vila-pantovcak",
-    title: "Vila Pantovčak",
+    slug: "vila-gajnice",
+    title: "Vila Gajnice",
+    category: "Rezidencijalni interijer",
+    location: "Zagreb / Gajnice",
+    description:
+      "Prostran obiteljski interijer oblikovan toplim drvom, tamnim kamenim površinama i slojevitom ambijentalnom rasvjetom. Otvoreni dnevni prostor povezuje reprezentativan karakter s udobnošću svakodnevnog života.",
+    galleryCount: 12,
+    imageWidth: 2560,
+    imageHeight: 1086,
+  },
+  {
+    slug: "vila-beograd-71",
+    title: "Vila Beograd 71",
+    category: "Rezidencijalni interijer",
+    location: "Beograd",
+    description:
+      "Elegantna rezidencija u toploj neutralnoj paleti, s pažljivo oblikovanom rasvjetom, teksturama i namještajem koji prostoru daju miran, luksuzan karakter.",
+    galleryCount: 3,
+    imageWidth: 1536,
+    imageHeight: 864,
+  },
+  {
+    slug: "stan-zagreb-139",
+    title: "Stan Zagreb 139",
     category: "Rezidencijalni interijer",
     location: "Zagreb",
     description:
-      "Cjelovit projekt rezidencijalnog interijera oblikovan kroz profinjene materijale, uravnotežene proporcije i udobnost svakodnevnog života.",
+      "Suvremeni zagrebački stan u kojem tamni tonovi, drvene teksture i skulpturalna rasvjeta stvaraju profinjen, funkcionalan prostor otvorenog plana.",
+    galleryCount: 4,
+    imageWidth: 2560,
+    imageHeight: 1440,
+  },
+  {
+    slug: "stan-211-zagreb",
+    title: "Stan 211 Zagreb",
+    category: "Rezidencijalni interijer",
+    location: "Zagreb",
+    description:
+      "Interijer većeg zagrebačkog stana oblikovan izražajnim umjetničkim detaljima, toplom rasvjetom i skladnim prijelazima između dnevnih i privatnih prostora.",
+    galleryCount: 3,
+    imageWidth: 2560,
+    imageHeight: 1440,
+  },
+  {
+    slug: "stan-84",
+    title: "Stan 84",
+    category: "Rezidencijalni interijer",
+    location: "Hrvatska",
+    description:
+      "Udoban rezidencijalni interijer nježne palete i precizno oblikovanih detalja, osmišljen kako bi svaki kvadrat prostora bio funkcionalan i vizualno skladan.",
+    galleryCount: 4,
+    imageWidth: 2560,
+    imageHeight: 1440,
+  },
+  {
+    slug: "apartman-zagreb-49",
+    title: "Apartman Zagreb 49",
+    category: "Rezidencijalni interijer",
+    location: "Zagreb",
+    description:
+      "Kompaktan zagrebački apartman s promišljenim namještajem po mjeri, grafičkim zidnim detaljima i toplom neutralnom paletom koja vizualno otvara prostor.",
     galleryCount: 8,
-    imageWidth: 1536,
-    imageHeight: 1152,
+    imageWidth: 2560,
+    imageHeight: 1086,
   },
   {
     slug: "stan-98-zagreb",
@@ -338,17 +393,6 @@ export const portfolioProjects: PortfolioProject[] = [
     imageWidth: 1500,
     imageHeight: 1000,
   },
-  {
-    slug: "od-svega-po-malo",
-    title: "Od svega po malo",
-    category: "Izbor iz portfolija",
-    location: "Europa · SAD · Azija",
-    description:
-      "Dodatni izbor realizacija koji pokazuje širinu prostora, stilova i tipologija na kojima je Davini radio.",
-    galleryCount: 55,
-    imageWidth: 2560,
-    imageHeight: 1086,
-  },
 ];
 
 export const referenceProjects = [
@@ -373,7 +417,12 @@ export const referenceProjects = [
   "Stan 98 — Zagreb",
   "Stan Petrova — Zagreb",
   "Vila Golf Club — Zagreb",
-  "Vila Pantovčak — Zagreb",
+  "Vila Gajnice — Zagreb",
+  "Vila Beograd 71 — Beograd",
+  "Stan Zagreb 139 — Zagreb",
+  "Stan 211 — Zagreb",
+  "Stan 84 — Hrvatska",
+  "Apartman Zagreb 49 — Zagreb",
   "Hotel Marbella — Španjolska",
   "Hotel Plaza — Pag",
   "Nahala Beach Bar — Filipini",

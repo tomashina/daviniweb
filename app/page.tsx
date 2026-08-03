@@ -112,7 +112,7 @@ export default function Home() {
     name: SITE_NAME,
     url: SITE_URL,
     description: SITE_DESCRIPTION,
-    image: `${SITE_URL}/site-assets/hero-1920.webp`,
+    image: `${SITE_URL}/site-assets/hero-1536.webp`,
     email: "davini.casa@gmail.com",
     telephone: "+385953871448",
     address: {
@@ -162,9 +162,9 @@ export default function Home() {
             src="/site-assets/hero-1280.webp"
             alt="Elegantno uređen dnevni boravak i blagovaonica"
             width="1280"
-            height="543"
+            height="720"
             fetchPriority="high"
-            srcSet="/site-assets/hero-640.webp 640w, /site-assets/hero-1280.webp 1280w, /site-assets/hero-1920.webp 1920w"
+            srcSet="/site-assets/hero-640.webp 640w, /site-assets/hero-1280.webp 1280w, /site-assets/hero-1536.webp 1536w"
             sizes="(max-width: 820px) calc(100vw - 40px), 53vw"
           />
           <div className="hero-image-label">
@@ -319,12 +319,12 @@ export default function Home() {
       <section className="design-story">
         <div className="story-image story-image-organic">
           <img
-            src={portfolioPreviewPath("vila-pantovcak", 1, 640)}
-            srcSet={portfolioPreviewSrcSet("vila-pantovcak")}
+            src={portfolioPreviewPath("vila-beograd-71", 1, 640)}
+            srcSet={portfolioPreviewSrcSet("vila-beograd-71")}
             sizes="(max-width: 820px) calc(100vw - 40px), 24vw"
             alt="Organski oblikovan interijer inspiriran prirodom"
             width="1536"
-            height="1152"
+            height="864"
             loading="lazy"
           />
           <span>Organic design</span>

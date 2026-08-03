@@ -72,11 +72,11 @@ export default function StylesPage() {
       <section className="organic-feature">
         <div className="organic-feature-image">
           <img
-            src={portfolioPreviewPath("vila-pantovcak", 1, 1280)}
-            srcSet={portfolioPreviewSrcSet("vila-pantovcak")}
+            src={portfolioPreviewPath("vila-beograd-71", 1, 1280)}
+            srcSet={portfolioPreviewSrcSet("vila-beograd-71")}
             sizes="(max-width: 820px) 100vw, 40vw"
             width="1536"
-            height="1152"
+            height="864"
             loading="lazy"
             alt="Suvremeni interijer s organskim oblicima i prirodnim materijalima"
           />

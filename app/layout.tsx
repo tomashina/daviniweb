@@ -61,9 +61,9 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     images: [
       {
-        url: "/site-assets/hero-1920.webp",
-        width: 1920,
-        height: 814,
+        url: "/site-assets/hero-1536.webp",
+        width: 1536,
+        height: 864,
         alt: "Interijer koji je oblikovao Davini studio",
       },
     ],
@@ -72,7 +72,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Davini | Dizajn interijera i arhitektura Zagreb",
     description: SITE_DESCRIPTION,
-    images: ["/site-assets/hero-1920.webp"],
+    images: ["/site-assets/hero-1536.webp"],
   },
   robots: {
     index: true,

@@ -3,6 +3,7 @@
 
 The importer keeps the original files untouched, removes byte-identical
 duplicates, filters undersized sources and creates sequential WebP galleries.
+An optional second source adds the newer residential projects.
 """
 
 from __future__ import annotations
@@ -62,8 +63,6 @@ def build_galleries(source_root: Path) -> list[tuple[str, list[Path]]]:
     medical = source_root / "wetransfer_specijalna-bolnica-arithera_2026-07-31_0741"
     arsano = source_root / "wetransfer_arsano-medical-group_2026-07-31_0756"
     hotel = source_root / "wetransfer_hotel-plaza-pag_2026-07-31_0747"
-    apartment = source_root / "wetransfer_311661146_112814151615541_7816788887983366516_n-jpg_2026-07-31_0806"
-    residence = source_root / "wetransfer_a001-png_2026-07-31_0749"
     mixed_root = source_root / "wetransfer_render-1774299345132-png_2026-07-31_0802"
     mixed = mixed_root / "projekti"
 
@@ -134,9 +133,6 @@ def build_galleries(source_root: Path) -> list[tuple[str, list[Path]]]:
         "vinski podrum 4.png",
     )
 
-    mnml = sorted(path for path in image_files(mixed) if path.name.startswith("MNMLAI_"))
-    pantovcak = named(arsano, "127.png") + named(mixed, "129.png", "d006.png") + mnml
-
     hotel_files = image_files(hotel)
     hotel_plaza = named(hotel, "render-1784805630814.png") + [
         path for path in hotel_files if path.name != "render-1784805630814.png"
@@ -164,31 +160,6 @@ def build_galleries(source_root: Path) -> list[tuple[str, list[Path]]]:
         "7ad5d3a5cb3f66c7f0e75617f3eac1fe.jpg",
     )
 
-    mixed_residential = (
-        image_files(apartment)
-        + image_files(residence)
-        + image_files(mixed_root)
-        + named(mixed, "004.png", "006.png", "009.png", "011.png")
-        + named(
-            mixed,
-            "IMG-20260516-WA0002.jpg",
-            "kuh 005.png",
-            "kuh 006.png",
-            "livingroom 3.png",
-            "livingroom 4.png",
-            "spavaca master 1 (1).png",
-        )
-        + prefixed(mixed, "render-177909")
-        + prefixed(mixed, "render-178254")
-        + prefixed(mixed, "render-178255")
-        + prefixed(mixed, "render-178257")
-    )
-    # Use a strong landscape render as the cover of the mixed gallery.
-    preferred_cover = apartment / "render-1776520142167.png"
-    mixed_residential = [preferred_cover] + [
-        path for path in mixed_residential if path != preferred_cover
-    ]
-
     return [
         ("urocentar", urocentar),
         ("arithera", image_files(medical / "Specijalna bolnica Arithera")),
@@ -199,7 +170,6 @@ def build_galleries(source_root: Path) -> list[tuple[str, list[Path]]]:
         ("boutique-san-marco", image_files(medical / "Butique San Marco")),
         ("faces-2-face", image_files(arsano / "Face2face")),
         ("vila-kostrena", kostrena),
-        ("vila-pantovcak", pantovcak),
         ("stan-98-zagreb", image_files(primary / "Stan 98 Zagreb")),
         ("stan-petrova", image_files(primary / "Stan Petrova zagreb")),
         ("vila-lovran", lovran),
@@ -207,7 +177,45 @@ def build_galleries(source_root: Path) -> list[tuple[str, list[Path]]]:
         ("ekosen", ekosen),
         ("beauty-salon-sandra", sandra),
         ("wine-bar", wine_bar),
-        ("od-svega-po-malo", mixed_residential),
+    ]
+
+
+def build_additional_galleries(source_root: Path) -> list[tuple[str, list[Path]]]:
+    gajnice = source_root / "vila gajnice"
+    beograd = source_root / "Vila Beograd 71"
+
+    return [
+        (
+            "vila-gajnice",
+            named(
+                gajnice,
+                "render-1776520142167.png",
+                "render-1776520270631.png",
+                "render-1776520531952.png",
+                "render-1776520601472.png",
+                "030.png",
+                "031.png",
+                "056.png",
+                "058.png",
+                "059.png",
+                "063.png",
+                "11.jpg",
+                "ulaz 2.png",
+            ),
+        ),
+        ("stan-zagreb-139", image_files(source_root / "Stan Zagreb 139")),
+        ("apartman-zagreb-49", image_files(source_root / "Apartman Zagreb 49")),
+        (
+            "vila-beograd-71",
+            named(
+                beograd,
+                "MNMLAI_INTERIORAI_00001_ (8).png",
+                "MNMLAI_INTERIORAI_00001_ (10).png",
+                "MNMLAI_INTERIORAI_00001_ (11).png",
+            ),
+        ),
+        ("stan-84", image_files(source_root / "Stan 84")),
+        ("stan-211-zagreb", image_files(source_root / "Stan 211 Zagreb")),
     ]
 
 
@@ -263,23 +271,47 @@ def main() -> None:
     parser.add_argument("--max-edge", type=int, default=2560)
     parser.add_argument("--quality", type=int, default=90)
     parser.add_argument("--previews-only", action="store_true")
+    parser.add_argument("--additional-projects", type=Path)
+    parser.add_argument("--hero-source", type=Path)
     args = parser.parse_args()
 
     mapped_galleries = build_galleries(args.source)
+    additional_galleries: list[tuple[str, list[Path]]] = []
+    if args.additional_projects:
+        additional_galleries = build_additional_galleries(args.additional_projects)
+        mapped_galleries.extend(additional_galleries)
+
     selected = [path for _, paths in mapped_galleries for path in paths]
     missing = [path for path in selected if not path.is_file()]
     if missing:
         raise SystemExit("Missing source files:\n" + "\n".join(map(str, missing)))
 
-    source_files = image_files(args.source, recursive=True)
-    source_hashes = {digest(path) for path in source_files}
     selected_hashes = [digest(path) for path in selected]
     if len(selected_hashes) != len(set(selected_hashes)):
         raise SystemExit("The gallery mapping contains duplicate source images")
-    if set(selected_hashes) != source_hashes:
-        selected_set = set(selected_hashes)
-        unmapped = [path for path in source_files if digest(path) not in selected_set]
-        raise SystemExit("Unmapped unique images:\n" + "\n".join(map(str, unmapped)))
+
+    if args.additional_projects:
+        expected_additional = [
+            path
+            for folder in args.additional_projects.iterdir()
+            if folder.is_dir() and "pantov" not in folder.name.casefold()
+            for path in image_files(folder)
+        ]
+        selected_additional = [
+            path for _, paths in additional_galleries for path in paths
+        ]
+        if {digest(path) for path in selected_additional} != {
+            digest(path) for path in expected_additional
+        }:
+            selected_set = {digest(path) for path in selected_additional}
+            unmapped = [
+                path
+                for path in expected_additional
+                if digest(path) not in selected_set
+            ]
+            raise SystemExit(
+                "Unmapped additional images:\n" + "\n".join(map(str, unmapped))
+            )
 
     galleries = []
     skipped = []
@@ -327,7 +359,7 @@ def main() -> None:
 
     site_assets = args.destination.parent / "site-assets"
     site_assets.mkdir(parents=True, exist_ok=True)
-    hero_source = (
+    hero_source = args.hero_source or (
         args.source
         / "wetransfer_311661146_112814151615541_7816788887983366516_n-jpg_2026-07-31_0806"
         / "render-1776520142167.png"
@@ -338,8 +370,10 @@ def main() -> None:
         / "Vila Lovran"
         / "livingroom 1.png"
     )
-    for edge in (640, 1280, 1920):
-        convert(hero_source, site_assets / f"hero-{edge}.webp", edge, 88)
+    for stale in site_assets.glob("hero-*.webp"):
+        stale.unlink()
+    for width in (640, 1280, 1536):
+        convert_width(hero_source, site_assets / f"hero-{width}.webp", width, 88)
     old_contact = site_assets / "contact-1280.webp"
     if old_contact.exists():
         old_contact.unlink()

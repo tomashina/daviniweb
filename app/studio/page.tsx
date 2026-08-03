@@ -98,10 +98,10 @@ export default function StudioPage() {
 
       <section className="turnkey-section">
         <img
-          src="/site-assets/hero-1920.webp"
+          src="/site-assets/hero-1536.webp"
           sizes="100vw"
-          width="1920"
-          height="814"
+          width="1536"
+          height="864"
           alt="Davini interijer realiziran po principu ključ u ruke"
           loading="lazy"
         />
