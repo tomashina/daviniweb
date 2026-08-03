@@ -4,6 +4,7 @@ import ScrollAnimations from "./scroll-animations";
 import {
   GOOGLE_ANALYTICS_ID,
   GOOGLE_SITE_VERIFICATION,
+  HERO_IMAGE_VERSION,
   SITE_DESCRIPTION,
   SITE_NAME,
   SITE_URL,
@@ -61,7 +62,7 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     images: [
       {
-        url: "/site-assets/hero-1536.webp",
+        url: `/site-assets/hero-1536.webp?v=${HERO_IMAGE_VERSION}`,
         width: 1536,
         height: 864,
         alt: "Interijer koji je oblikovao Davini studio",
@@ -72,7 +73,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Davini | Dizajn interijera i arhitektura Zagreb",
     description: SITE_DESCRIPTION,
-    images: ["/site-assets/hero-1536.webp"],
+    images: [`/site-assets/hero-1536.webp?v=${HERO_IMAGE_VERSION}`],
   },
   robots: {
     index: true,

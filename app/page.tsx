@@ -6,7 +6,12 @@ import {
   portfolioPreviewPath,
   portfolioPreviewSrcSet,
 } from "./content";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "./site-config";
+import {
+  HERO_IMAGE_VERSION,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_URL,
+} from "./site-config";
 
 const projects = [
   {
@@ -112,7 +117,7 @@ export default function Home() {
     name: SITE_NAME,
     url: SITE_URL,
     description: SITE_DESCRIPTION,
-    image: `${SITE_URL}/site-assets/hero-1536.webp`,
+    image: `${SITE_URL}/site-assets/hero-1536.webp?v=${HERO_IMAGE_VERSION}`,
     email: "davini.casa@gmail.com",
     telephone: "+385953871448",
     address: {
@@ -159,12 +164,12 @@ export default function Home() {
 
         <div className="hero-visual">
           <img
-            src="/site-assets/hero-1280.webp"
+            src={`/site-assets/hero-1280.webp?v=${HERO_IMAGE_VERSION}`}
             alt="Elegantno uređen dnevni boravak i blagovaonica"
             width="1280"
             height="720"
             fetchPriority="high"
-            srcSet="/site-assets/hero-640.webp 640w, /site-assets/hero-1280.webp 1280w, /site-assets/hero-1536.webp 1536w"
+            srcSet={`/site-assets/hero-640.webp?v=${HERO_IMAGE_VERSION} 640w, /site-assets/hero-1280.webp?v=${HERO_IMAGE_VERSION} 1280w, /site-assets/hero-1536.webp?v=${HERO_IMAGE_VERSION} 1536w`}
             sizes="(max-width: 820px) calc(100vw - 40px), 53vw"
           />
           <div className="hero-image-label">

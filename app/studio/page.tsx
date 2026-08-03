@@ -4,6 +4,7 @@ import InnerHero from "../components/inner-hero";
 import SiteFooter from "../components/site-footer";
 import SiteHeader from "../components/site-header";
 import { studioPrinciples, whyDesigner } from "../content";
+import { HERO_IMAGE_VERSION } from "../site-config";
 
 export const metadata: Metadata = {
   title: "Studio",
@@ -98,7 +99,7 @@ export default function StudioPage() {
 
       <section className="turnkey-section">
         <img
-          src="/site-assets/hero-1536.webp"
+          src={`/site-assets/hero-1536.webp?v=${HERO_IMAGE_VERSION}`}
           sizes="100vw"
           width="1536"
           height="864"
